@@ -191,6 +191,7 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
                 block={block}
                 introHeroBackground={hasImmersiveHero && index === 0 && block.type === 'hero'}
                 centeredLayout
+                introHeroVideoSrc={isIntroduction ? '/assets/intro-main.mp4' : '/assets/intro-hero.mp4'}
               />
             ))}
           </article>

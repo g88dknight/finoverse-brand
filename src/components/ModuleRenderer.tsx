@@ -10,9 +10,15 @@ type ModuleRendererProps = {
   block: ContentBlock
   introHeroBackground?: boolean
   centeredLayout?: boolean
+  introHeroVideoSrc?: string
 }
 
-export function ModuleRenderer({ block, introHeroBackground = false, centeredLayout = false }: ModuleRendererProps) {
+export function ModuleRenderer({
+  block,
+  introHeroBackground = false,
+  centeredLayout = false,
+  introHeroVideoSrc = '/assets/intro-hero.mp4',
+}: ModuleRendererProps) {
   const [copiedVariant, setCopiedVariant] = useState<string | null>(null)
 
   const triggerSvgDownload = (file: string) => {
@@ -45,7 +51,7 @@ export function ModuleRenderer({ block, introHeroBackground = false, centeredLay
           <section className="intro-hero-section relative left-1/2 right-1/2 -mx-[50vw] w-screen min-h-[100svh] overflow-hidden">
             <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
               <video className="intro-hero-bg-video" autoPlay muted loop playsInline>
-                <source src="/assets/intro-hero.mp4" type="video/mp4" />
+                <source src={introHeroVideoSrc} type="video/mp4" />
               </video>
               <div className="intro-hero-bg-vignette" />
             </div>
