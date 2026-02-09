@@ -1,0 +1,8 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" fill="#0F1115"/>
+  <circle cx="280" cy="270" r="150" fill="none" stroke="#E7E8EC" stroke-width="2"/>
+  <rect x="500" y="120" width="290" height="290" rx="38" fill="none" stroke="#E7E8EC" stroke-width="2"/>
+  <polygon points="980,130 1120,390 840,390" fill="none" stroke="#E7E8EC" stroke-width="2"/>
+  <line x1="120" y1="540" x2="1080" y2="540" stroke="#E7E8EC" stroke-width="2"/>
+  <text x="120" y="640" font-size="60" font-family="Geist, Arial, sans-serif" fill="#E7E8EC">Shape System / Monochrome</text>
+</svg>

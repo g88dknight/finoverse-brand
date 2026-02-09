@@ -1,0 +1,5 @@
+Motion tokens
+- Ease out: cubic-bezier(0.2, 0.7, 0.2, 1)
+- Duration short: 180ms
+- Duration medium: 320ms
+- Duration long: 520ms

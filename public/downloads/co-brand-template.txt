@@ -1,0 +1,4 @@
+Co-brand lockup template
+1. Keep visual weight equal.
+2. Minimum spacing: 1x brand mark width.
+3. Never place partner mark inside core lockup.

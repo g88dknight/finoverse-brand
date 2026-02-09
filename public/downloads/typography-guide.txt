@@ -1,0 +1,4 @@
+Typography system
+- Heading: Sora 700 italic
+- Body: Manrope 500
+- Highlight: Sora 800 uppercase
