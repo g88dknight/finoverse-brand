@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { ContentBlock } from '@/types'
 import { Check, Copy, Download, ExternalLink, Figma } from 'lucide-react'
 import { CopyButton } from '@/components/CopyButton'
+import FaultyTerminal from '@/components/FaultyTerminal'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -11,6 +12,7 @@ type ModuleRendererProps = {
   introHeroBackground?: boolean
   centeredLayout?: boolean
   introHeroVideoSrc?: string
+  introHeroMode?: 'video' | 'faultyTerminal'
 }
 
 export function ModuleRenderer({
@@ -18,6 +20,7 @@ export function ModuleRenderer({
   introHeroBackground = false,
   centeredLayout = false,
   introHeroVideoSrc = '/assets/intro-hero.mp4',
+  introHeroMode = 'video',
 }: ModuleRendererProps) {
   const [copiedVariant, setCopiedVariant] = useState<string | null>(null)
   const [copiedColor, setCopiedColor] = useState<string | null>(null)
@@ -89,9 +92,31 @@ export function ModuleRenderer({
         return (
           <section className="intro-hero-section relative left-1/2 right-1/2 -mx-[50vw] w-screen min-h-[100svh] overflow-hidden">
             <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-              <video className="intro-hero-bg-video" autoPlay muted loop playsInline>
-                <source src={introHeroVideoSrc} type="video/mp4" />
-              </video>
+              {introHeroMode === 'faultyTerminal' ? (
+                <FaultyTerminal
+                  scale={1.5}
+                  gridMul={[2, 1]}
+                  digitSize={1.9}
+                  timeScale={0.5}
+                  pause={false}
+                  scanlineIntensity={0.5}
+                  glitchAmount={1}
+                  flickerAmount={1}
+                  noiseAmp={1}
+                  chromaticAberration={0}
+                  dither={0}
+                  curvature={0.1}
+                  tint="#A7EF9E"
+                  mouseReact
+                  mouseStrength={0.5}
+                  pageLoadAnimation
+                  brightness={0.5}
+                />
+              ) : (
+                <video className="intro-hero-bg-video" autoPlay muted loop playsInline>
+                  <source src={introHeroVideoSrc} type="video/mp4" />
+                </video>
+              )}
               <div className="intro-hero-bg-vignette" />
             </div>
 
