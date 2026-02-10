@@ -473,6 +473,109 @@ export const brandbookData: BrandbookData = {
           ],
         },
         {
+          id: 'colors',
+          title: 'Colors',
+          slug: 'colors',
+          navLevel: 0,
+          blocks: [
+            {
+              type: 'hero',
+              title: 'Colors',
+              description:
+                'Primary and extended brand palette for digital and print use. Hover any color card and copy HEX directly from the overlay.',
+            },
+            {
+              type: 'brandColorPalette',
+              title: 'Primary Colors',
+              description:
+                'Core palette from the master brand system. Use these as default identity colors across product, marketing, and materials.',
+              colors: [
+                {
+                  name: 'Coral Red',
+                  pantone: '1787 C',
+                  cmyk: '0/92/68/0',
+                  rgb: '249/53/73',
+                  hex: '#F93549',
+                },
+                {
+                  name: 'Sea Blue',
+                  pantone: '0921 C',
+                  cmyk: '39/0/18/0',
+                  rgb: '138/237/226',
+                  hex: '#8AEDE2',
+                },
+                {
+                  name: 'Calm Blue',
+                  pantone: '307 C',
+                  cmyk: '100/50/19/3',
+                  rgb: '0/105/167',
+                  hex: '#0069A7',
+                },
+                {
+                  name: 'Dark Night',
+                  pantone: '2965 C',
+                  cmyk: '100/83/44/48',
+                  rgb: '4/39/68',
+                  hex: '#042744',
+                },
+              ],
+            },
+            {
+              type: 'brandColorPalette',
+              title: 'Brand Colors',
+              description:
+                'Extended brand colors from the provided brand color board. Use as accents while preserving hierarchy of the primary palette.',
+              colors: [
+                {
+                  name: 'Coral Red',
+                  pantone: '1787 C',
+                  cmyk: '0/92/68/0',
+                  rgb: '249/53/73',
+                  hex: '#F93549',
+                },
+                {
+                  name: 'Violet',
+                  pantone: '2592 C',
+                  cmyk: '51/89/0/0',
+                  rgb: '158/40/181',
+                  hex: '#9E28B5',
+                },
+                {
+                  name: 'Calm Blue',
+                  pantone: '307 C',
+                  cmyk: '100/50/19/3',
+                  rgb: '0/105/167',
+                  hex: '#0069A7',
+                },
+                {
+                  name: 'Sea Blue',
+                  cmyk: '38/0/18/0',
+                  rgb: '138/237/226',
+                  hex: '#8AEDE2',
+                },
+                {
+                  name: 'Orange',
+                  cmyk: '0/50/100/0',
+                  rgb: '255/147/0',
+                  hex: '#FF9300',
+                },
+                {
+                  name: 'Dark Night',
+                  cmyk: '100/83/44/48',
+                  rgb: '4/39/68',
+                  hex: '#042744',
+                },
+                {
+                  name: 'Sky Blue',
+                  cmyk: '50/6/0/0',
+                  rgb: '102/199/255',
+                  hex: '#66C7FF',
+                },
+              ],
+            },
+          ],
+        },
+        {
           id: 'typography',
           title: 'Typography',
           slug: 'typography',

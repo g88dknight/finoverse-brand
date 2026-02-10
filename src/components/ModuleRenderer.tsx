@@ -20,6 +20,29 @@ export function ModuleRenderer({
   introHeroVideoSrc = '/assets/intro-hero.mp4',
 }: ModuleRendererProps) {
   const [copiedVariant, setCopiedVariant] = useState<string | null>(null)
+  const [copiedColor, setCopiedColor] = useState<string | null>(null)
+
+  const copyTextToClipboard = async (value: string) => {
+    try {
+      await navigator.clipboard.writeText(value)
+      return true
+    } catch {
+      try {
+        const textarea = document.createElement('textarea')
+        textarea.value = value
+        textarea.style.position = 'fixed'
+        textarea.style.opacity = '0'
+        document.body.appendChild(textarea)
+        textarea.focus()
+        textarea.select()
+        const success = document.execCommand('copy')
+        textarea.remove()
+        return success
+      } catch {
+        return false
+      }
+    }
+  }
 
   const triggerSvgDownload = (file: string) => {
     const anchor = document.createElement('a')
@@ -34,14 +57,30 @@ export function ModuleRenderer({
     try {
       const response = await fetch(file)
       const svgContent = await response.text()
-      await navigator.clipboard.writeText(svgContent)
-      setCopiedVariant(variantName)
-      window.setTimeout(() => {
-        setCopiedVariant((current) => (current === variantName ? null : current))
-      }, 1600)
+      const copied = await copyTextToClipboard(svgContent)
+
+      if (copied) {
+        setCopiedVariant(variantName)
+        window.setTimeout(() => {
+          setCopiedVariant((current) => (current === variantName ? null : current))
+        }, 1600)
+      }
     } catch {
       // no-op: clipboard may be unavailable in non-secure contexts
     }
+  }
+
+  const copyHexToClipboard = async (hex: string) => {
+    const copied = await copyTextToClipboard(hex)
+
+    if (!copied) {
+      return
+    }
+
+    setCopiedColor(hex)
+    window.setTimeout(() => {
+      setCopiedColor((current) => (current === hex ? null : current))
+    }, 1300)
   }
 
   switch (block.type) {
@@ -363,6 +402,84 @@ export function ModuleRenderer({
         </section>
       )
 
+    case 'brandColorPalette':
+      return (
+        <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
+          <SectionTitle title={block.title} centered={centeredLayout} />
+          {block.description ? (
+            <p className={`text-base leading-7 text-muted-foreground ${centeredLayout ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}`}>
+              {block.description}
+            </p>
+          ) : null}
+          <div className={`grid gap-0 border-t border-border/70 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+            {block.colors.map((color) => {
+              const isCopied = copiedColor === color.hex
+              const textToneClassName = readableTextClassName(color.hex)
+
+              return (
+                <article
+                  key={`${color.name}-${color.hex}`}
+                  className="group relative overflow-hidden border-b border-r border-border/60"
+                >
+                  <div
+                    className={`relative min-h-[280px] px-5 py-6 md:min-h-[320px] md:px-6 md:py-7 ${textToneClassName}`}
+                    style={{ backgroundColor: color.hex }}
+                    role="button"
+                    tabIndex={0}
+                    title={`Copy ${color.hex}`}
+                    onClick={() => void copyHexToClipboard(color.hex)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault()
+                        void copyHexToClipboard(color.hex)
+                      }
+                    }}
+                  >
+                    <div className="space-y-3 text-sm leading-tight md:text-base">
+                      {color.pantone ? (
+                        <p className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">
+                          Pantone <span className="ml-1 normal-case font-medium">{color.pantone}</span>
+                        </p>
+                      ) : null}
+                      <p className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">
+                        CMYK <span className="ml-1 normal-case font-medium">{color.cmyk}</span>
+                      </p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">
+                        RGB <span className="ml-1 normal-case font-medium">{color.rgb}</span>
+                      </p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">
+                        HEX <span className="ml-1 normal-case font-medium">{color.hex}</span>
+                      </p>
+                    </div>
+
+                    <p className="pointer-events-none absolute bottom-6 left-5 right-5 text-4xl font-medium tracking-[-0.03em] md:bottom-7 md:left-6 md:right-6 md:text-5xl">
+                      {color.name}
+                    </p>
+
+                    <div className="pointer-events-none absolute inset-0 bg-black/30 opacity-0 transition-opacity duration-200 md:group-hover:opacity-100 md:group-focus-within:opacity-100" />
+
+                    <div className="absolute right-4 top-4 opacity-100 transition-opacity duration-200 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100">
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-black/45 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-[2px]"
+                        onClick={(event) => {
+                          event.preventDefault()
+                          event.stopPropagation()
+                          void copyHexToClipboard(color.hex)
+                        }}
+                      >
+                        {isCopied ? <Check size={14} /> : <Copy size={14} />}
+                        {isCopied ? 'Copied' : 'Copy HEX'}
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </section>
+      )
+
     case 'logoVariants':
       return (
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
@@ -485,4 +602,26 @@ function gridByCount(count: number) {
   }
 
   return 'md:grid-cols-3'
+}
+
+function readableTextClassName(hex: string) {
+  const normalized = hex.replace('#', '')
+  const expanded =
+    normalized.length === 3
+      ? normalized
+          .split('')
+          .map((char) => `${char}${char}`)
+          .join('')
+      : normalized
+
+  const red = Number.parseInt(expanded.slice(0, 2), 16)
+  const green = Number.parseInt(expanded.slice(2, 4), 16)
+  const blue = Number.parseInt(expanded.slice(4, 6), 16)
+
+  if ([red, green, blue].some((channel) => Number.isNaN(channel))) {
+    return 'text-white'
+  }
+
+  const luminance = (0.299 * red + 0.587 * green + 0.114 * blue) / 255
+  return luminance > 0.7 ? 'text-slate-900' : 'text-white'
 }

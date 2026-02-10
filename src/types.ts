@@ -32,6 +32,14 @@ export type QuickLinkItem = {
   platform?: 'figma'
 }
 
+export type BrandColorSpec = {
+  name: string
+  hex: string
+  rgb: string
+  cmyk: string
+  pantone?: string
+}
+
 export type ContentBlock =
   | {
       type: 'hero'
@@ -119,6 +127,12 @@ export type ContentBlock =
       type: 'quickLinks'
       title: string
       items: QuickLinkItem[]
+    }
+  | {
+      type: 'brandColorPalette'
+      title: string
+      description?: string
+      colors: BrandColorSpec[]
     }
   | {
       type: 'logoVariants'
