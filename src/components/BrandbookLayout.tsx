@@ -46,7 +46,6 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
   const currentPath = `/${pageLookup.sectionSlug}/${pageLookup.page.slug}`
   const isIntroduction = pageLookup.page.id === 'introduction'
-  const isAiOverview = pageLookup.page.id === 'ai-overview'
   const isSubBrandOverview = ['events-overview', 'ai-overview', 'ventures-overview'].includes(pageLookup.page.id)
   const hasImmersiveHero = isIntroduction || isSubBrandOverview
   const logoClassName = `h-4 w-auto ${theme === 'light' ? 'brightness-0' : ''}`
@@ -193,7 +192,6 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
                 introHeroBackground={hasImmersiveHero && index === 0 && block.type === 'hero'}
                 centeredLayout
                 introHeroVideoSrc={isIntroduction ? '/assets/intro-main.mp4' : '/assets/intro-hero.mp4'}
-                introHeroMode={isAiOverview ? 'faultyTerminal' : 'video'}
               />
             ))}
           </article>
