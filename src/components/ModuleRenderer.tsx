@@ -4,7 +4,6 @@ import { Check, Copy, Download, ExternalLink, Figma } from 'lucide-react'
 import { CopyButton } from '@/components/CopyButton'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
 
 type ModuleRendererProps = {
   block: ContentBlock
@@ -124,7 +123,7 @@ export function ModuleRenderer({
 
       if (standardHeroBackground) {
         return (
-          <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen min-h-[72svh] overflow-hidden md:min-h-[86svh]">
+          <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen min-h-[50svh] overflow-hidden md:min-h-[60svh]">
             <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
               <video className="intro-hero-bg-video" autoPlay muted loop playsInline>
                 <source src={standardHeroVideoSrc} type="video/mp4" />
@@ -132,7 +131,7 @@ export function ModuleRenderer({
               <div className="intro-hero-bg-vignette" />
             </div>
 
-            <div className="relative z-10 mx-auto flex min-h-[72svh] w-full max-w-7xl items-center justify-center px-6 py-20 md:min-h-[86svh] md:px-12 lg:px-16">
+            <div className="relative z-10 mx-auto flex min-h-[50svh] w-full max-w-7xl items-center justify-center px-6 py-14 md:min-h-[60svh] md:px-12 lg:px-16">
               <div className="space-y-6 text-center md:space-y-8">
                 {block.eyebrow ? (
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
@@ -151,7 +150,7 @@ export function ModuleRenderer({
                       asChild
                       variant="outline"
                       size="sm"
-                      className="h-9 rounded-full border-white/45 bg-black/20 px-4 text-xs font-medium text-white shadow-none hover:bg-white/20"
+                      className="h-9 rounded-full bg-white/22 px-4 text-xs font-medium text-white shadow-none hover:bg-white/30"
                     >
                       <a
                         href={heroDownloadAsset.file}
@@ -195,7 +194,7 @@ export function ModuleRenderer({
                 asChild
                 variant="outline"
                 size="sm"
-                className="h-9 rounded-full border-border/80 bg-transparent px-4 text-xs font-medium text-foreground shadow-none hover:bg-muted/30"
+                className="h-9 rounded-full bg-foreground/10 px-4 text-xs font-medium text-foreground shadow-none hover:bg-foreground/15"
               >
                 <a
                   href={heroDownloadAsset.file}
@@ -214,7 +213,7 @@ export function ModuleRenderer({
     case 'imageShowcase':
       return (
         <section className={`space-y-4 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
-          <div className="overflow-hidden rounded-xl border border-border/80">
+          <div className="overflow-hidden rounded-2xl">
             {block.background ? (
               <div
                 className={`flex items-center justify-center p-8 md:p-12 ${
@@ -248,11 +247,11 @@ export function ModuleRenderer({
       return (
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
-          <div className={`grid gap-0 border-t border-border/70 ${gridByCount(block.columns.length)} ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`grid gap-4 ${gridByCount(block.columns.length)} ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.columns.map((column) => (
               <Card
                 key={column.title ?? column.body.slice(0, 24)}
-                className="rounded-none border-0 border-b border-r border-border/60 bg-transparent shadow-none"
+                className="rounded-2xl border-0 bg-muted/30 shadow-none"
               >
                 <CardContent className="space-y-4 px-5 py-6 md:px-6 md:py-7">
                   {column.title ? <h3 className="text-2xl font-semibold tracking-[-0.02em]">{column.title}</h3> : null}
@@ -269,11 +268,11 @@ export function ModuleRenderer({
       return (
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
-          <div className={`grid gap-0 border-t border-border/70 ${centeredLayout ? 'mx-auto max-w-5xl md:grid-cols-2' : 'md:grid-cols-2'}`}>
+          <div className={`grid gap-4 ${centeredLayout ? 'mx-auto max-w-5xl md:grid-cols-2' : 'md:grid-cols-2'}`}>
             {block.steps.map((step) => (
               <Card
                 key={step.title}
-                className="rounded-none border-0 border-b border-r border-border/60 bg-transparent shadow-none"
+                className="rounded-2xl border-0 bg-muted/30 shadow-none"
               >
                 <CardContent className="space-y-3 px-5 py-6 md:px-6 md:py-7">
                   <h3 className="text-2xl font-semibold tracking-[-0.02em]">{step.title}</h3>
@@ -289,11 +288,11 @@ export function ModuleRenderer({
       return (
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
-          <div className={`grid gap-0 border-t border-border/70 md:grid-cols-3 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`grid gap-4 md:grid-cols-3 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.cards.map((card) => (
               <Card
                 key={card.title}
-                className="rounded-none border-0 border-b border-r border-border/60 bg-transparent shadow-none"
+                className="rounded-2xl border-0 bg-muted/30 shadow-none"
               >
                 <CardContent className="space-y-3 px-5 py-6 md:px-6 md:py-7">
                   <h3 className="text-2xl font-semibold tracking-[-0.02em]">{card.title}</h3>
@@ -310,14 +309,14 @@ export function ModuleRenderer({
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
           {block.description ? <p className={`text-base leading-7 text-muted-foreground ${centeredLayout ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}`}>{block.description}</p> : null}
-          <div className={`grid gap-0 border-t border-border/70 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`grid gap-4 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.swatches.map((swatch) => (
               <Card
                 key={swatch.hex}
-                className="rounded-none border-0 border-b border-r border-border/60 bg-transparent shadow-none"
+                className="rounded-2xl border-0 bg-muted/30 shadow-none"
               >
                 <CardContent className="space-y-4 px-5 py-6 md:px-6 md:py-7">
-                  <div className="aspect-[4/2] w-full rounded-lg border border-border/70" style={{ background: swatch.hex }} />
+                  <div className="aspect-[4/2] w-full rounded-lg" style={{ background: swatch.hex }} />
                   <h3 className="text-2xl font-semibold tracking-[-0.02em]">{swatch.name}</h3>
                   <p className="text-base leading-7 text-muted-foreground">{swatch.role}</p>
                   <div className="flex items-center justify-between gap-4">
@@ -336,11 +335,11 @@ export function ModuleRenderer({
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
           {block.description ? <p className={`text-base leading-7 text-muted-foreground ${centeredLayout ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}`}>{block.description}</p> : null}
-          <div className={`space-y-0 border-t border-border/70 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`space-y-4 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.samples.map((sample) => (
               <Card
                 key={sample.label}
-                className="rounded-none border-0 border-b border-border/60 bg-transparent shadow-none"
+                className="rounded-2xl border-0 bg-muted/30 shadow-none"
               >
                 <CardContent className="flex flex-col items-start justify-between gap-5 px-5 py-6 md:flex-row md:items-center md:px-6 md:py-7">
                   <div className="space-y-2">
@@ -361,11 +360,11 @@ export function ModuleRenderer({
       return (
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
-          <div className={`grid gap-0 border-t border-border/70 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`grid gap-4 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.items.map((item) => (
               <Card
                 key={`${item.kind}-${item.title}`}
-                className="rounded-none border-0 border-b border-r border-border/60 bg-transparent shadow-none"
+                className="rounded-2xl border-0 bg-muted/30 shadow-none"
               >
                 <CardContent className="space-y-3 px-5 py-6 md:px-6 md:py-7">
                   <p
@@ -388,14 +387,14 @@ export function ModuleRenderer({
       return (
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
-          <div className={`grid gap-0 border-t border-border/70 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`grid gap-4 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.items.map((item) => (
-              <figure key={item.src} className="space-y-3 border-b border-r border-border/60 px-5 py-6 md:px-6 md:py-7">
+              <figure key={item.src} className="space-y-3 rounded-2xl bg-muted/30 px-5 py-6 md:px-6 md:py-7">
                 <img
                   src={item.src}
                   alt={item.alt}
                   loading="lazy"
-                  className="aspect-[16/10] w-full rounded-lg border border-border/60 object-cover"
+                  className="aspect-[16/10] w-full rounded-lg object-cover"
                 />
                 {item.caption ? <figcaption className="text-sm text-muted-foreground">{item.caption}</figcaption> : null}
               </figure>
@@ -409,7 +408,7 @@ export function ModuleRenderer({
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
           {block.description ? <p className={`text-base leading-7 text-muted-foreground ${centeredLayout ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}`}>{block.description}</p> : null}
-          <div className={`overflow-hidden rounded-lg border border-border/70 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`overflow-hidden rounded-lg ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             <video controls playsInline loop poster={block.poster} className="w-full">
               <source src={block.src} type="video/mp4" />
             </video>
@@ -421,11 +420,11 @@ export function ModuleRenderer({
       return (
         <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
           <SectionTitle title={block.title} centered={centeredLayout} />
-          <div className={`space-y-0 border-t border-border/70 ${centeredLayout ? 'mx-auto max-w-4xl' : ''}`}>
+          <div className={`space-y-4 ${centeredLayout ? 'mx-auto max-w-4xl' : ''}`}>
             {block.items.map((item) => (
               <Card
                 key={item.name}
-                className="rounded-none border-0 border-b border-border/60 bg-transparent shadow-none"
+                className="rounded-2xl border-0 bg-muted/30 shadow-none"
               >
                 <CardContent className="flex flex-col items-start justify-between gap-5 px-5 py-6 md:flex-row md:items-center md:px-6 md:py-7">
                   <div className="space-y-2">
@@ -436,7 +435,7 @@ export function ModuleRenderer({
                     asChild
                     variant="outline"
                     size="sm"
-                    className="h-9 rounded-full border-border/80 bg-transparent px-4 text-xs font-medium text-foreground shadow-none hover:bg-muted/30"
+                    className="h-9 rounded-full bg-foreground/10 px-4 text-xs font-medium text-foreground shadow-none hover:bg-foreground/15"
                   >
                     <a
                       href={item.file}
@@ -465,7 +464,7 @@ export function ModuleRenderer({
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative rounded-2xl border border-white/15 bg-black/[0.04] p-4 transition-colors hover:bg-black/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:bg-white/[0.02] dark:hover:bg-white/[0.06]"
+                className="group relative rounded-2xl bg-muted/30 p-4 transition-colors hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <div className="absolute right-4 top-4">
                   <ExternalLink size={18} className="text-muted-foreground transition-colors group-hover:text-foreground" />
@@ -492,7 +491,7 @@ export function ModuleRenderer({
               {block.description}
             </p>
           ) : null}
-          <div className={`grid gap-0 border-t border-border/70 md:grid-cols-2 lg:grid-cols-4 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`grid gap-4 md:grid-cols-2 lg:grid-cols-4 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.colors.map((color) => {
               const colorKey = `${color.name}-${color.hex}`
               const textToneClassName = readableTextClassName(color.hex)
@@ -534,7 +533,7 @@ export function ModuleRenderer({
               return (
                 <article
                   key={colorKey}
-                  className="group relative overflow-hidden border-b border-r border-border/60"
+                  className="group relative overflow-hidden rounded-2xl"
                 >
                   <div
                     className={`relative min-h-[240px] px-3 py-3 md:min-h-[270px] md:px-3 md:py-3.5 ${textToneClassName}`}
@@ -598,18 +597,18 @@ export function ModuleRenderer({
               {block.description}
             </p>
           ) : null}
-          <div className={`grid gap-0 border-t border-border/70 ${centeredLayout ? 'mx-auto max-w-5xl md:grid-cols-2' : 'md:grid-cols-2'}`}>
+          <div className={`grid gap-4 ${centeredLayout ? 'mx-auto max-w-5xl md:grid-cols-2' : 'md:grid-cols-2'}`}>
             {block.variants.map((variant) => {
               const isCopied = copiedVariant === variant.name
 
               return (
                 <div
                   key={variant.name}
-                  className="group border-b border-r border-border/60 px-5 py-6 md:px-6 md:py-7"
+                  className="group rounded-2xl bg-muted/30 px-5 py-6 md:px-6 md:py-7"
                 >
                   <figure className="space-y-4">
                     <div
-                      className="relative flex aspect-[16/8] cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-border/60 p-6"
+                      className="relative flex aspect-[16/8] cursor-pointer items-center justify-center overflow-hidden rounded-lg p-6"
                       style={{ background: variant.background ?? 'transparent' }}
                       onClick={() => triggerSvgDownload(variant.file)}
                       onKeyDown={(event) => {
@@ -632,7 +631,7 @@ export function ModuleRenderer({
                         <div className="flex items-center gap-2">
                           <button
                             type="button"
-                            className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-black/45 px-3 py-1.5 text-xs font-medium text-white"
+                            className="inline-flex items-center gap-2 rounded-full bg-black/55 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black/70"
                             onClick={(event) => {
                               event.preventDefault()
                               event.stopPropagation()
@@ -644,7 +643,7 @@ export function ModuleRenderer({
                           </button>
                           <button
                             type="button"
-                            className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-black/45 px-3 py-1.5 text-xs font-medium text-white"
+                            className="inline-flex items-center gap-2 rounded-full bg-black/55 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black/70"
                             onClick={(event) => {
                               event.preventDefault()
                               event.stopPropagation()
@@ -672,7 +671,6 @@ export function ModuleRenderer({
     case 'quote':
       return (
         <section className={`space-y-6 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl text-center' : ''}`}>
-          <Separator className={`bg-border/70 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`} />
           <blockquote className={`text-4xl font-semibold leading-tight tracking-[-0.04em] md:text-6xl ${centeredLayout ? 'mx-auto max-w-5xl' : 'max-w-5xl'}`}>
             {block.text}
           </blockquote>

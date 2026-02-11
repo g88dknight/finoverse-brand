@@ -20,7 +20,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 
 type BrandbookLayoutProps = {
@@ -50,6 +49,7 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
   const isSubBrandOverview = ['events-overview', 'ai-overview', 'ventures-overview'].includes(pageLookup.page.id)
   const useCompactHeroDescription = !isIntroduction && !isSubBrandOverview
   const hasImmersiveHero = isIntroduction || isSubBrandOverview
+  const hasTopHero = hasImmersiveHero || useCompactHeroDescription
   const logoClassName = `h-8 w-auto ${theme === 'light' ? 'brightness-0' : 'brightness-0 invert'}`
   const heroDownloadAsset = useMemo<DownloadAsset | null>(() => {
     if (!useCompactHeroDescription) {
@@ -103,16 +103,13 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
         className="bg-background group-data-[side=left]:border-r-0 group-data-[side=right]:border-l-0 [&>[data-sidebar=sidebar]]:border-0"
       >
         <SidebarHeader className="px-6 pb-2 pt-6 md:hidden">
-          <div className="flex items-center justify-between gap-4">
-            <Link to={firstPagePath} className="ml-4 shrink-0">
-              <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
-            </Link>
+          <div className="flex items-center justify-end gap-4">
             <SidebarTrigger className="-translate-y-1 h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-muted/30 hover:text-foreground" />
           </div>
         </SidebarHeader>
 
         <SidebarContent className="px-4">
-          <div className="flex h-full items-start pt-4 md:pt-24">
+          <div className="flex h-full items-start pt-14 md:pt-[8.5rem]">
             <SidebarMenu className="w-full gap-1">
               {sidebarGroups.map((group) => {
                 const isParentActive = currentPath === group.parent.path
@@ -198,10 +195,10 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
 
         <main
           className={`main-shell relative z-10 mx-auto w-full max-w-7xl px-4 pb-32 md:px-12 lg:px-16 ${
-            hasImmersiveHero ? 'pt-0 md:pt-0' : 'pt-6 md:pt-10'
+            hasTopHero ? 'pt-0 md:pt-0' : 'pt-6 md:pt-10'
           }`}
         >
-          <article className={hasImmersiveHero ? 'space-y-14 md:space-y-20' : 'space-y-24 md:space-y-36'}>
+          <article className={hasTopHero ? 'space-y-14 md:space-y-20' : 'space-y-24 md:space-y-36'}>
             {pageLookup.page.blocks.map((block, index) => (
               <ModuleRenderer
                 key={`${pageLookup.page.id}-${index}`}
@@ -217,14 +214,14 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
             ))}
           </article>
 
-          <Separator className="my-20 bg-border/70" />
+          <div className="my-16 md:my-20" />
 
           <footer className="grid gap-6 md:grid-cols-2">
             {pageLookup.previous ? (
               <Button
                 asChild
                 variant="outline"
-                className="h-auto justify-start rounded-xl border-border/70 bg-transparent px-6 py-5 text-left font-normal shadow-none hover:bg-muted/30"
+                className="h-auto justify-start rounded-xl bg-foreground/10 px-6 py-5 text-left font-normal text-foreground shadow-none hover:bg-foreground/15"
               >
                 <NavLink to={pageLookup.previous.path}>
                   <span className="block text-[11px] uppercase tracking-[0.1em] text-muted-foreground">Previous</span>
@@ -240,7 +237,7 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
               <Button
                 asChild
                 variant="outline"
-                className="h-auto justify-end rounded-xl border-border/70 bg-transparent px-6 py-5 text-right font-normal shadow-none hover:bg-muted/30"
+                className="h-auto justify-end rounded-xl bg-foreground/10 px-6 py-5 text-right font-normal text-foreground shadow-none hover:bg-foreground/15"
               >
                 <NavLink to={pageLookup.next.path}>
                   <span className="block text-[11px] uppercase tracking-[0.1em] text-muted-foreground">Next</span>
@@ -253,7 +250,7 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
           </footer>
         </main>
 
-        <footer className="relative z-10 border-t border-border/70 px-4 py-8 md:px-12 md:py-10 lg:px-16">
+        <footer className="relative z-10 px-4 py-8 md:px-12 md:py-10 lg:px-16">
           <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-3 text-sm text-muted-foreground md:flex-row md:items-center">
             <p>Finoverse Network</p>
             <p>Brandbook and assets hub.</p>
