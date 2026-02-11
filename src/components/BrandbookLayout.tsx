@@ -107,12 +107,12 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
             <Link to={firstPagePath} className="ml-4 shrink-0">
               <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
             </Link>
-            <SidebarTrigger className="h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-muted/30 hover:text-foreground" />
+            <SidebarTrigger className="-translate-y-1 h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-muted/30 hover:text-foreground" />
           </div>
         </SidebarHeader>
 
         <SidebarContent className="px-4">
-          <div className="flex h-full items-center">
+          <div className="flex h-full items-start pt-4 md:pt-24">
             <SidebarMenu className="w-full gap-1">
               {sidebarGroups.map((group) => {
                 const isParentActive = currentPath === group.parent.path
@@ -187,11 +187,13 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
           <Link to={firstPagePath} className="shrink-0">
             <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
           </Link>
-          <SidebarTrigger className="h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
+          <SidebarTrigger className="-translate-y-1 h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
         </div>
 
-        <div className="fixed left-4 top-4 z-40 md:hidden">
-          <SidebarTrigger className="h-8 w-8 rounded-full border border-border/70 bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
+        <div className="fixed left-4 top-3 z-40 md:hidden">
+          <SidebarTrigger className="h-auto w-auto rounded-md bg-transparent p-0 hover:bg-transparent">
+            <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
+          </SidebarTrigger>
         </div>
 
         <main
@@ -205,8 +207,10 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
                 key={`${pageLookup.page.id}-${index}`}
                 block={block}
                 introHeroBackground={hasImmersiveHero && index === 0 && block.type === 'hero'}
+                standardHeroBackground={useCompactHeroDescription && index === 0 && block.type === 'hero'}
                 centeredLayout
                 introHeroVideoSrc={isIntroduction ? '/assets/intro-main.mp4' : '/assets/intro-hero.mp4'}
+                standardHeroVideoSrc="/assets/hero-pages.mp4"
                 compactHeroDescription={useCompactHeroDescription && block.type === 'hero'}
                 heroDownloadAsset={index === 0 && block.type === 'hero' ? heroDownloadAsset : null}
               />
@@ -248,6 +252,13 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
             )}
           </footer>
         </main>
+
+        <footer className="relative z-10 border-t border-border/70 px-4 py-8 md:px-12 md:py-10 lg:px-16">
+          <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-3 text-sm text-muted-foreground md:flex-row md:items-center">
+            <p>Finoverse Network</p>
+            <p>Brandbook and assets hub.</p>
+          </div>
+        </footer>
 
         <div className="chat-shell pointer-events-none fixed bottom-6 left-0 right-0 z-50">
           <div className="chat-inner mx-auto w-full max-w-7xl px-4 md:px-12 lg:px-16">

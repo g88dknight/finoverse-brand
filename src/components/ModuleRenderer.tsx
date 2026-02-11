@@ -9,8 +9,10 @@ import { Separator } from '@/components/ui/separator'
 type ModuleRendererProps = {
   block: ContentBlock
   introHeroBackground?: boolean
+  standardHeroBackground?: boolean
   centeredLayout?: boolean
   introHeroVideoSrc?: string
+  standardHeroVideoSrc?: string
   compactHeroDescription?: boolean
   heroDownloadAsset?: DownloadAsset | null
 }
@@ -18,8 +20,10 @@ type ModuleRendererProps = {
 export function ModuleRenderer({
   block,
   introHeroBackground = false,
+  standardHeroBackground = false,
   centeredLayout = false,
   introHeroVideoSrc = '/assets/intro-hero.mp4',
+  standardHeroVideoSrc = '/assets/hero-pages.mp4',
   compactHeroDescription = false,
   heroDownloadAsset = null,
 }: ModuleRendererProps) {
@@ -112,6 +116,54 @@ export function ModuleRenderer({
                 <p className="mx-auto max-w-5xl text-balance text-2xl leading-[1.18] tracking-[-0.02em] text-white/90 md:text-4xl lg:text-5xl">
                   {block.description}
                 </p>
+              </div>
+            </div>
+          </section>
+        )
+      }
+
+      if (standardHeroBackground) {
+        return (
+          <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen min-h-[72svh] overflow-hidden md:min-h-[86svh]">
+            <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+              <video className="intro-hero-bg-video" autoPlay muted loop playsInline>
+                <source src={standardHeroVideoSrc} type="video/mp4" />
+              </video>
+              <div className="intro-hero-bg-vignette" />
+            </div>
+
+            <div className="relative z-10 mx-auto flex min-h-[72svh] w-full max-w-7xl items-center justify-center px-6 py-20 md:min-h-[86svh] md:px-12 lg:px-16">
+              <div className="space-y-6 text-center md:space-y-8">
+                {block.eyebrow ? (
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
+                    {block.eyebrow}
+                  </p>
+                ) : null}
+                <h1 className="mx-auto max-w-5xl text-balance text-5xl font-semibold leading-[0.92] tracking-[-0.05em] text-white md:text-7xl lg:text-8xl">
+                  {block.title}
+                </h1>
+                <p className="mx-auto max-w-4xl text-balance text-lg leading-[1.35] tracking-[-0.02em] text-white/92 md:text-2xl">
+                  {block.description}
+                </p>
+                {compactHeroDescription && heroDownloadAsset ? (
+                  <div className="flex justify-center pt-1 md:pt-2">
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="h-9 rounded-full border-white/45 bg-black/20 px-4 text-xs font-medium text-white shadow-none hover:bg-white/20"
+                    >
+                      <a
+                        href={heroDownloadAsset.file}
+                        {...(heroDownloadAsset.file.startsWith('http')
+                          ? { target: '_blank', rel: 'noreferrer' }
+                          : { download: true })}
+                      >
+                        Download {heroDownloadAsset.format}
+                      </a>
+                    </Button>
+                  </div>
+                ) : null}
               </div>
             </div>
           </section>
