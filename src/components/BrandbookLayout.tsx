@@ -183,8 +183,8 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
       <SidebarInset className="relative overflow-hidden bg-background md:peer-data-[state=collapsed]:[&_.main-shell]:max-w-none md:peer-data-[state=collapsed]:[&_.chat-inner]:max-w-none md:peer-data-[state=expanded]:[&_.chat-shell]:left-[var(--sidebar-width)]">
         <HongKongTimeWidget />
 
-        <div className="fixed left-6 top-6 z-50 hidden items-center gap-4 md:flex">
-          <Link to={firstPagePath} className="ml-4 shrink-0">
+        <div className="fixed left-0 top-8 z-50 hidden w-[var(--sidebar-width)] items-center justify-between px-6 md:flex">
+          <Link to={firstPagePath} className="shrink-0 translate-y-1">
             <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
           </Link>
           <SidebarTrigger className="h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
