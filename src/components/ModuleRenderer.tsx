@@ -150,7 +150,7 @@ export function ModuleRenderer({
                       asChild
                       variant="outline"
                       size="sm"
-                      className="h-9 rounded-full bg-white/22 px-4 text-xs font-medium text-white shadow-none hover:bg-white/30"
+                      className="h-9 rounded-full bg-white px-4 text-xs font-medium text-black shadow-none hover:bg-white/90"
                     >
                       <a
                         href={heroDownloadAsset.file}
@@ -194,7 +194,7 @@ export function ModuleRenderer({
                 asChild
                 variant="outline"
                 size="sm"
-                className="h-9 rounded-full bg-foreground/10 px-4 text-xs font-medium text-foreground shadow-none hover:bg-foreground/15"
+                className="h-9 rounded-full bg-foreground px-4 text-xs font-medium text-background shadow-none hover:bg-foreground/90"
               >
                 <a
                   href={heroDownloadAsset.file}

@@ -103,7 +103,10 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
         className="bg-background group-data-[side=left]:border-r-0 group-data-[side=right]:border-l-0 [&>[data-sidebar=sidebar]]:border-0"
       >
         <SidebarHeader className="px-6 pb-2 pt-6 md:hidden">
-          <div className="flex items-center justify-end gap-4">
+          <div className="flex items-center justify-between gap-4">
+            <Link to={firstPagePath} className="shrink-0">
+              <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
+            </Link>
             <SidebarTrigger className="-translate-y-1 h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-muted/30 hover:text-foreground" />
           </div>
         </SidebarHeader>
@@ -187,7 +190,7 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
           <SidebarTrigger className="-translate-y-1 h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
         </div>
 
-        <div className="fixed left-4 top-3 z-40 md:hidden">
+        <div className="fixed left-4 top-3 z-50 md:hidden">
           <SidebarTrigger className="h-auto w-auto rounded-md bg-transparent p-0 hover:bg-transparent">
             <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
           </SidebarTrigger>

@@ -588,6 +588,42 @@ export const brandbookData: BrandbookData = {
               text: 'Build clarity first. Distinction follows.',
               author: 'Finoverse Brand Team',
             },
+            {
+              type: 'textColumns',
+              title: 'What This Brandbook Covers',
+              columns: [
+                {
+                  title: 'Identity System',
+                  body: 'Logo, colors, typography, and usage patterns designed for consistent execution across product and campaign surfaces.',
+                },
+                {
+                  title: 'Sub-brand Structure',
+                  body: 'Events, AI, and Ventures each keep a distinct role while sharing one coherent network framework.',
+                },
+                {
+                  title: 'Execution Standards',
+                  body: 'Production-ready guidance for social, documents, and launch materials with fast QA before publishing.',
+                },
+              ],
+            },
+            {
+              type: 'steps',
+              title: 'How Teams Use This',
+              steps: [
+                {
+                  title: '01. Start from page intent',
+                  body: 'Pick the section that matches the asset type you are producing.',
+                },
+                {
+                  title: '02. Apply system defaults',
+                  body: 'Use approved lockups, palette hierarchy, and typography tokens before custom styling.',
+                },
+                {
+                  title: '03. Validate before release',
+                  body: 'Use the embedded checklists and resource packs to keep output aligned and production-safe.',
+                },
+              ],
+            },
           ],
         },
         {
@@ -654,6 +690,29 @@ export const brandbookData: BrandbookData = {
                 },
               ],
             },
+            {
+              type: 'steps',
+              title: 'Messaging Framework',
+              steps: [
+                {
+                  title: '01. Lead with real outcomes',
+                  body: 'Open with what changes for people, founders, or partners after engaging with Finoverse.',
+                },
+                {
+                  title: '02. Connect innovation and trust',
+                  body: 'Balance AI-forward language with warmth and collaborative intent.',
+                },
+                {
+                  title: '03. Close with action',
+                  body: 'End copy blocks with one clear next step, CTA, or partnership direction.',
+                },
+              ],
+            },
+            {
+              type: 'quote',
+              text: 'Trusted networks are built one clear conversation at a time.',
+              author: 'Finoverse Messaging Principle',
+            },
           ],
         },
         {
@@ -667,6 +726,24 @@ export const brandbookData: BrandbookData = {
               title: 'Logo',
               description:
                 'Finoverse logo system includes a primary lockup and a star icon. Use approved color variants only and preserve contrast in every placement.',
+            },
+            {
+              type: 'textColumns',
+              title: 'Logo Applications',
+              columns: [
+                {
+                  title: 'Digital Product',
+                  body: 'Use lockups in navigation, splash states, and owned surfaces with strict clear-space protection.',
+                },
+                {
+                  title: 'Campaign and Media',
+                  body: 'Use approved variants only, matching contrast against image-led and motion-led canvases.',
+                },
+                {
+                  title: 'Partnership Contexts',
+                  body: 'When co-branding, preserve logo integrity first and avoid visual competition in shared layouts.',
+                },
+              ],
             },
             {
               type: 'imageShowcase',
@@ -789,6 +866,42 @@ export const brandbookData: BrandbookData = {
               description:
                 'Use these tones for hierarchy, contrast, and production flexibility while preserving the network/sub-brand color hierarchy.',
               colors: extendedNetworkColors,
+            },
+            {
+              type: 'textColumns',
+              title: 'Color System Strategy',
+              columns: [
+                {
+                  title: 'Hierarchy First',
+                  body: 'Anchor layouts in one primary brand color, then add support tones for emphasis and scanning flow.',
+                },
+                {
+                  title: 'Consistent Contrast',
+                  body: 'Maintain strong readability in hero messaging, UI labels, and data-heavy sections.',
+                },
+                {
+                  title: 'Campaign Flexibility',
+                  body: 'Use supporting tones for thematic campaigns while preserving network-color recognition.',
+                },
+              ],
+            },
+            {
+              type: 'steps',
+              title: 'Color Workflow',
+              steps: [
+                {
+                  title: '01. Pick a lead color',
+                  body: 'Assign one dominant color per page section to keep a clear visual center.',
+                },
+                {
+                  title: '02. Add two support tones max',
+                  body: 'Limit support colors to preserve visual rhythm and avoid noisy compositions.',
+                },
+                {
+                  title: '03. Validate for accessibility',
+                  body: 'Check foreground/background contrast on all key copy and CTA areas before release.',
+                },
+              ],
             },
             {
               type: 'downloadList',
@@ -916,6 +1029,24 @@ export const brandbookData: BrandbookData = {
                 {
                   title: '03. Keep spacing consistent',
                   body: 'Preserve predictable vertical rhythm between heading, text, and components.',
+                },
+              ],
+            },
+            {
+              type: 'ruleCards',
+              title: 'Typography in Practice',
+              cards: [
+                {
+                  title: 'Editorial Rhythm',
+                  body: 'Keep a predictable cadence between heading, subheading, and body blocks in long-form pages.',
+                },
+                {
+                  title: 'CTA Clarity',
+                  body: 'Use medium-weight labels and concise verbs to keep actions clear in high-density layouts.',
+                },
+                {
+                  title: 'Story Contrast',
+                  body: 'Alternate larger statements with compact explanatory copy for better narrative flow.',
                 },
               ],
             },
@@ -1055,6 +1186,51 @@ export const brandbookData: BrandbookData = {
                   file: '/downloads/motion-presets.txt',
                 },
               ],
+            },
+          ],
+        },
+        {
+          id: 'stories',
+          title: 'Stories',
+          slug: 'stories',
+          navLevel: 0,
+          blocks: [
+            {
+              type: 'hero',
+              title: 'Stories',
+              description:
+                'Selected narratives from the Finoverse network: how trusted offline relationships create measurable momentum for builders and teams.',
+            },
+            {
+              type: 'gallery',
+              title: 'Featured Narratives',
+              items: [
+                {
+                  src: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1800&q=80',
+                  alt: 'Builders discussing growth strategy in workshop',
+                  caption: 'From first meeting to launch partner: relationship-led growth in one quarter.',
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=80',
+                  alt: 'Team presenting market-entry strategy',
+                  caption: 'Go-to-market acceleration powered by curated introductions and practical advisory.',
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1800&q=80',
+                  alt: 'Founder roundtable with investors',
+                  caption: 'Founder-investor roundtables designed for high-context conversations and decisions.',
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1800&q=80',
+                  alt: 'Event stage with audience engagement',
+                  caption: 'Events as infrastructure: creating continuity before, during, and after each flagship moment.',
+                },
+              ],
+            },
+            {
+              type: 'quote',
+              text: 'Great stories are not campaigns. They are proof that trust compounds.',
+              author: 'Finoverse Network',
             },
           ],
         },
