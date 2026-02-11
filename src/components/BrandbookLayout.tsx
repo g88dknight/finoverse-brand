@@ -50,7 +50,7 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
   const isSubBrandOverview = ['events-overview', 'ai-overview', 'ventures-overview'].includes(pageLookup.page.id)
   const useCompactHeroDescription = !isIntroduction && !isSubBrandOverview
   const hasImmersiveHero = isIntroduction || isSubBrandOverview
-  const logoClassName = `h-4 w-auto ${theme === 'light' ? 'brightness-0' : ''}`
+  const logoClassName = `h-8 w-auto ${theme === 'light' ? 'brightness-0' : 'brightness-0 invert'}`
   const heroDownloadAsset = useMemo<DownloadAsset | null>(() => {
     if (!useCompactHeroDescription) {
       return null
