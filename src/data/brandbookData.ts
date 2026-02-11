@@ -790,6 +790,18 @@ export const brandbookData: BrandbookData = {
                 'Use these tones for hierarchy, contrast, and production flexibility while preserving the network/sub-brand color hierarchy.',
               colors: extendedNetworkColors,
             },
+            {
+              type: 'downloadList',
+              title: 'Color Resources',
+              items: [
+                {
+                  name: 'Color Palette Export',
+                  description: 'ASE palette for design tools and production handoff.',
+                  format: 'ASE',
+                  file: '/downloads/color-palette.ase',
+                },
+              ],
+            },
           ],
         },
         {

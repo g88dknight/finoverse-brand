@@ -4,6 +4,7 @@ import { ArrowUp, ChevronDown } from 'lucide-react'
 import { firstPagePath } from '@/data/brandbookData'
 import type { PageLookup } from '@/data/contentIndex'
 import { navigationItems } from '@/data/contentIndex'
+import type { DownloadAsset } from '@/types'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { ModuleRenderer } from '@/components/ModuleRenderer'
 import { HongKongTimeWidget } from '@/components/HongKongTimeWidget'
@@ -47,8 +48,22 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
   const currentPath = `/${pageLookup.sectionSlug}/${pageLookup.page.slug}`
   const isIntroduction = pageLookup.page.id === 'introduction'
   const isSubBrandOverview = ['events-overview', 'ai-overview', 'ventures-overview'].includes(pageLookup.page.id)
+  const useCompactHeroDescription = !isIntroduction && !isSubBrandOverview
   const hasImmersiveHero = isIntroduction || isSubBrandOverview
   const logoClassName = `h-4 w-auto ${theme === 'light' ? 'brightness-0' : ''}`
+  const heroDownloadAsset = useMemo<DownloadAsset | null>(() => {
+    if (!useCompactHeroDescription) {
+      return null
+    }
+
+    for (const block of pageLookup.page.blocks) {
+      if (block.type === 'downloadList' && block.items.length > 0) {
+        return block.items[0]
+      }
+    }
+
+    return null
+  }, [pageLookup.page.blocks, useCompactHeroDescription])
 
   const sidebarGroups = useMemo(() => {
     const groups: Array<{
@@ -192,6 +207,8 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
                 introHeroBackground={hasImmersiveHero && index === 0 && block.type === 'hero'}
                 centeredLayout
                 introHeroVideoSrc={isIntroduction ? '/assets/intro-main.mp4' : '/assets/intro-hero.mp4'}
+                compactHeroDescription={useCompactHeroDescription && block.type === 'hero'}
+                heroDownloadAsset={index === 0 && block.type === 'hero' ? heroDownloadAsset : null}
               />
             ))}
           </article>

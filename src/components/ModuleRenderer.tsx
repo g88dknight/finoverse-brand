@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ContentBlock } from '@/types'
+import type { ContentBlock, DownloadAsset } from '@/types'
 import { Check, Copy, Download, ExternalLink, Figma } from 'lucide-react'
 import { CopyButton } from '@/components/CopyButton'
 import { Card, CardContent } from '@/components/ui/card'
@@ -11,6 +11,8 @@ type ModuleRendererProps = {
   introHeroBackground?: boolean
   centeredLayout?: boolean
   introHeroVideoSrc?: string
+  compactHeroDescription?: boolean
+  heroDownloadAsset?: DownloadAsset | null
 }
 
 export function ModuleRenderer({
@@ -18,6 +20,8 @@ export function ModuleRenderer({
   introHeroBackground = false,
   centeredLayout = false,
   introHeroVideoSrc = '/assets/intro-hero.mp4',
+  compactHeroDescription = false,
+  heroDownloadAsset = null,
 }: ModuleRendererProps) {
   const [copiedVariant, setCopiedVariant] = useState<string | null>(null)
   const [copiedColorToken, setCopiedColorToken] = useState<string | null>(null)
@@ -124,9 +128,34 @@ export function ModuleRenderer({
           <h1 className="mx-auto max-w-5xl text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.05em] md:text-7xl lg:text-8xl">
             {block.title}
           </h1>
-          <p className="mx-auto max-w-5xl text-balance text-2xl leading-[1.18] tracking-[-0.02em] text-foreground/90 md:text-4xl lg:text-5xl">
+          <p
+            className={`mx-auto text-balance tracking-[-0.02em] text-foreground/90 ${
+              compactHeroDescription
+                ? 'max-w-4xl text-lg leading-[1.35] md:text-xl lg:text-2xl'
+                : 'max-w-5xl text-2xl leading-[1.18] md:text-4xl lg:text-5xl'
+            }`}
+          >
             {block.description}
           </p>
+          {compactHeroDescription && heroDownloadAsset ? (
+            <div className="flex justify-center pt-1 md:pt-2">
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="h-9 rounded-full border-border/80 bg-transparent px-4 text-xs font-medium text-foreground shadow-none hover:bg-muted/30"
+              >
+                <a
+                  href={heroDownloadAsset.file}
+                  {...(heroDownloadAsset.file.startsWith('http')
+                    ? { target: '_blank', rel: 'noreferrer' }
+                    : { download: true })}
+                >
+                  Download {heroDownloadAsset.format}
+                </a>
+              </Button>
+            </div>
+          ) : null}
         </section>
       )
 
@@ -449,7 +478,6 @@ export function ModuleRenderer({
               ]
                 .filter(Boolean)
                 .join('\n')
-              const isProfileCopied = copiedColorToken === `${colorKey}-profile`
 
               return (
                 <article
@@ -457,7 +485,7 @@ export function ModuleRenderer({
                   className="group relative overflow-hidden border-b border-r border-border/60"
                 >
                   <div
-                    className={`relative min-h-[280px] px-5 py-6 md:min-h-[320px] md:px-6 md:py-7 ${textToneClassName}`}
+                    className={`relative min-h-[240px] px-4 py-4 md:min-h-[280px] md:px-4 md:py-5 ${textToneClassName}`}
                     style={{ backgroundColor: color.hex }}
                     role="button"
                     tabIndex={0}
@@ -477,7 +505,7 @@ export function ModuleRenderer({
                           <button
                             key={item.token}
                             type="button"
-                            className="group/value flex w-full items-center justify-between rounded-md px-2 py-1 text-left transition-colors hover:bg-black/15 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-current/40 dark:hover:bg-white/15"
+                            className="group/value flex w-full items-center justify-between rounded-md px-1.5 py-1 text-left transition-colors hover:bg-black/15 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-current/40 dark:hover:bg-white/15"
                             onClick={(event) => {
                               event.preventDefault()
                               event.stopPropagation()
@@ -496,27 +524,11 @@ export function ModuleRenderer({
                       })}
                     </div>
 
-                    <div className="pointer-events-none absolute bottom-6 left-5 right-5 md:bottom-7 md:left-6 md:right-6">
+                    <div className="pointer-events-none absolute bottom-4 left-4 right-4 md:bottom-5">
                       <p className="text-3xl font-medium tracking-[-0.03em] md:text-4xl">{color.name}</p>
-                      {color.role ? <p className="mt-1 max-w-[24ch] text-xs font-medium leading-5 opacity-90">{color.role}</p> : null}
                     </div>
 
                     <div className="pointer-events-none absolute inset-0 bg-black/30 opacity-0 transition-opacity duration-200 md:group-hover:opacity-100 md:group-focus-within:opacity-100" />
-
-                    <div className="absolute right-4 top-4 opacity-100 transition-opacity duration-200 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-black/45 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-[2px]"
-                        onClick={(event) => {
-                          event.preventDefault()
-                          event.stopPropagation()
-                          void copyColorValueToClipboard(profileText, `${colorKey}-profile`)
-                        }}
-                      >
-                        {isProfileCopied ? <Check size={14} /> : <Copy size={14} />}
-                        {isProfileCopied ? 'Copied profile' : 'Copy profile'}
-                      </button>
-                    </div>
                   </div>
                 </article>
               )
