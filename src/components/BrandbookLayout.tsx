@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { ArrowUp, ChevronDown } from 'lucide-react'
+import { ArrowUp, ChevronDown, ChevronLeft, ChevronRight, Github, Globe, Instagram, Linkedin, Youtube } from 'lucide-react'
 import { firstPagePath } from '@/data/brandbookData'
 import type { PageLookup } from '@/data/contentIndex'
 import { navigationItems } from '@/data/contentIndex'
@@ -20,7 +20,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { Button } from '@/components/ui/button'
 
 type BrandbookLayoutProps = {
   pageLookup: PageLookup
@@ -95,6 +94,50 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
     document.documentElement.classList.toggle('dark', theme === 'dark')
     window.localStorage.setItem(THEME_KEY, theme)
   }, [theme])
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [currentPath])
+
+  const footerColumns = [
+    {
+      title: 'Brandbook',
+      links: [
+        { label: 'Introduction', href: `/${pageLookup.sectionSlug}/introduction` },
+        { label: 'Brand Tone', href: `/${pageLookup.sectionSlug}/brand-tone` },
+        { label: 'Logo', href: `/${pageLookup.sectionSlug}/logo` },
+        { label: 'Colors', href: `/${pageLookup.sectionSlug}/colors` },
+        { label: 'Typography', href: `/${pageLookup.sectionSlug}/typography` },
+      ],
+    },
+    {
+      title: 'Sub-brands',
+      links: [
+        { label: 'Finoverse Events', href: `/${pageLookup.sectionSlug}/events` },
+        { label: 'Finoverse AI', href: `/${pageLookup.sectionSlug}/ai` },
+        { label: 'Finoverse Ventures', href: `/${pageLookup.sectionSlug}/ventures` },
+        { label: 'Stories', href: `/${pageLookup.sectionSlug}/stories` },
+      ],
+    },
+    {
+      title: 'Resources',
+      links: [
+        { label: 'Logo Variants ZIP', href: '/downloads/finoverse-logo-variants.zip' },
+        { label: 'Color Palette ASE', href: '/downloads/color-palette.ase' },
+        { label: 'Typography Guide', href: '/downloads/typography-guide.txt' },
+        { label: 'Brand Checklist', href: '/downloads/co-brand-template.txt' },
+      ],
+    },
+    {
+      title: 'Practice',
+      links: [
+        { label: 'Motion', href: `/${pageLookup.sectionSlug}/motion` },
+        { label: 'Social Media', href: `/${pageLookup.sectionSlug}/social-media` },
+        { label: 'Documents', href: `/${pageLookup.sectionSlug}/documents` },
+        { label: 'Figma Source', href: 'https://www.figma.com/' },
+      ],
+    },
+  ] as const
 
   return (
     <SidebarProvider defaultOpen>
@@ -190,10 +233,8 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
           <SidebarTrigger className="-translate-y-1 h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
         </div>
 
-        <div className="fixed left-4 top-3 z-50 md:hidden">
-          <SidebarTrigger className="h-auto w-auto rounded-md bg-transparent p-0 hover:bg-transparent">
-            <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
-          </SidebarTrigger>
+        <div className="fixed left-4 top-3 z-40 md:hidden">
+          <SidebarTrigger className="-translate-y-1 h-8 w-8 rounded-full border border-border/70 bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
         </div>
 
         <main
@@ -219,44 +260,94 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
 
           <div className="my-16 md:my-20" />
 
-          <footer className="grid gap-6 md:grid-cols-2">
+          <footer className="grid gap-4 md:grid-cols-2">
             {pageLookup.previous ? (
-              <Button
-                asChild
-                variant="outline"
-                className="h-auto justify-start rounded-xl bg-foreground/10 px-6 py-5 text-left font-normal text-foreground shadow-none hover:bg-foreground/15"
+              <NavLink
+                to={pageLookup.previous.path}
+                className="group rounded-2xl bg-transparent px-6 py-5 transition-colors hover:bg-foreground/6"
               >
-                <NavLink to={pageLookup.previous.path}>
-                  <span className="block text-[11px] uppercase tracking-[0.1em] text-muted-foreground">Previous</span>
-                  <strong className="mt-3 block text-xl font-semibold tracking-[-0.02em]">
-                    {pageLookup.previous.title}
-                  </strong>
-                </NavLink>
-              </Button>
+                <p className="text-[13px] font-normal text-muted-foreground">Previous</p>
+                <p className="mt-1 inline-flex items-center gap-2 text-4xl font-semibold tracking-[-0.03em] text-foreground">
+                  <ChevronLeft size={30} className="text-foreground/70 transition-colors group-hover:text-foreground" />
+                  <span>{pageLookup.previous.title}</span>
+                </p>
+              </NavLink>
             ) : (
               <div />
             )}
             {pageLookup.next ? (
-              <Button
-                asChild
-                variant="outline"
-                className="h-auto justify-end rounded-xl bg-foreground/10 px-6 py-5 text-right font-normal text-foreground shadow-none hover:bg-foreground/15"
+              <NavLink
+                to={pageLookup.next.path}
+                className="group rounded-2xl bg-transparent px-6 py-5 text-right transition-colors hover:bg-foreground/6"
               >
-                <NavLink to={pageLookup.next.path}>
-                  <span className="block text-[11px] uppercase tracking-[0.1em] text-muted-foreground">Next</span>
-                  <strong className="mt-3 block text-xl font-semibold tracking-[-0.02em]">{pageLookup.next.title}</strong>
-                </NavLink>
-              </Button>
+                <p className="text-[13px] font-normal text-muted-foreground">Next</p>
+                <p className="mt-1 inline-flex items-center gap-2 text-4xl font-semibold tracking-[-0.03em] text-foreground">
+                  <span>{pageLookup.next.title}</span>
+                  <ChevronRight size={30} className="text-foreground/70 transition-colors group-hover:text-foreground" />
+                </p>
+              </NavLink>
             ) : (
               <div />
             )}
           </footer>
         </main>
 
-        <footer className="relative z-10 px-4 py-8 md:px-12 md:py-10 lg:px-16">
-          <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-3 text-sm text-muted-foreground md:flex-row md:items-center">
-            <p>Finoverse Network</p>
-            <p>Brandbook and assets hub.</p>
+        <footer className="relative z-10 px-4 pb-12 pt-16 md:px-12 md:pb-14 md:pt-20 lg:px-16">
+          <div className="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-2 lg:grid-cols-4">
+            {footerColumns.map((column) => (
+              <div key={column.title} className="space-y-3">
+                <p className="text-sm text-muted-foreground">{column.title}</p>
+                <ul className="space-y-2.5">
+                  {column.links.map((link) => (
+                    <li key={`${column.title}-${link.label}`}>
+                      {link.href.startsWith(`/${pageLookup.sectionSlug}/`) ? (
+                        <NavLink to={link.href} className="text-lg tracking-[-0.01em] text-foreground/95 transition-colors hover:text-foreground">
+                          {link.label}
+                        </NavLink>
+                      ) : (
+                        <a
+                          href={link.href}
+                          className="text-lg tracking-[-0.01em] text-foreground/95 transition-colors hover:text-foreground"
+                          {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : { download: true })}
+                        >
+                          {link.label}
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mx-auto mt-12 flex w-full max-w-7xl flex-col items-start justify-between gap-5 text-sm text-muted-foreground md:flex-row md:items-center">
+            <div className="flex items-center gap-4 text-foreground/90">
+              <a href="https://github.com/g88dknight/finoverse-brand" target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-70">
+                <Github size={18} />
+              </a>
+              <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-70">
+                <Youtube size={18} />
+              </a>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-70">
+                <Linkedin size={18} />
+              </a>
+              <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-70">
+                <Instagram size={18} />
+              </a>
+            </div>
+
+            <div className="flex flex-col items-start gap-2 md:items-center">
+              <p>Finoverse Network © 2026</p>
+              <a href="/downloads/co-brand-template.txt" download className="underline underline-offset-2 hover:text-foreground">
+                Manage Brand Assets
+              </a>
+            </div>
+
+            <div className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-foreground">
+              <Globe size={14} />
+              <span>English</span>
+              <span className="text-muted-foreground">United States</span>
+            </div>
           </div>
         </footer>
 
