@@ -266,9 +266,9 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
                 to={pageLookup.previous.path}
                 className="group rounded-2xl bg-transparent px-6 py-5 transition-colors hover:bg-foreground/6"
               >
-                <p className="text-[13px] font-normal text-muted-foreground">Previous</p>
-                <p className="mt-1 inline-flex items-center gap-2 text-4xl font-semibold tracking-[-0.03em] text-foreground">
+                <p className="inline-flex items-center gap-2 text-xl font-semibold tracking-[-0.02em] text-foreground md:text-2xl">
                   <ChevronLeft size={30} className="text-foreground/70 transition-colors group-hover:text-foreground" />
+                  <span className="text-sm font-normal text-muted-foreground md:text-base">Previous</span>
                   <span>{pageLookup.previous.title}</span>
                 </p>
               </NavLink>
@@ -280,8 +280,8 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
                 to={pageLookup.next.path}
                 className="group rounded-2xl bg-transparent px-6 py-5 text-right transition-colors hover:bg-foreground/6"
               >
-                <p className="text-[13px] font-normal text-muted-foreground">Next</p>
-                <p className="mt-1 inline-flex items-center gap-2 text-4xl font-semibold tracking-[-0.03em] text-foreground">
+                <p className="inline-flex items-center gap-2 text-xl font-semibold tracking-[-0.02em] text-foreground md:text-2xl">
+                  <span className="text-sm font-normal text-muted-foreground md:text-base">Next</span>
                   <span>{pageLookup.next.title}</span>
                   <ChevronRight size={30} className="text-foreground/70 transition-colors group-hover:text-foreground" />
                 </p>

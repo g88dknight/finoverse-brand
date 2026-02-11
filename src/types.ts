@@ -41,6 +41,23 @@ export type BrandColorSpec = {
   role?: string
 }
 
+export type IconKey =
+  | 'users'
+  | 'sparkles'
+  | 'network'
+  | 'handshake'
+  | 'rocket'
+  | 'shield'
+  | 'globe'
+  | 'layers'
+  | 'briefcase'
+  | 'chart'
+  | 'book'
+  | 'palette'
+  | 'type'
+  | 'play'
+  | 'camera'
+
 export type ContentBlock =
   | {
       type: 'hero'
@@ -79,6 +96,25 @@ export type ContentBlock =
       cards: Array<{
         title: string
         body: string
+      }>
+    }
+  | {
+      type: 'iconCards'
+      title: string
+      description?: string
+      cards: Array<{
+        icon: IconKey
+        title: string
+        body: string
+      }>
+    }
+  | {
+      type: 'statStrip'
+      title?: string
+      stats: Array<{
+        label: string
+        value: string
+        note?: string
       }>
     }
   | {

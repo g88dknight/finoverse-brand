@@ -1,6 +1,27 @@
 import { useState } from 'react'
-import type { ContentBlock, DownloadAsset } from '@/types'
-import { Check, Copy, Download, ExternalLink, Figma } from 'lucide-react'
+import type { ContentBlock, DownloadAsset, IconKey } from '@/types'
+import {
+  BarChart3,
+  BookOpen,
+  Briefcase,
+  Camera,
+  Check,
+  Copy,
+  Download,
+  ExternalLink,
+  Figma,
+  Globe,
+  Handshake,
+  Layers3,
+  Network,
+  Palette,
+  PlayCircle,
+  Rocket,
+  ShieldCheck,
+  Sparkles,
+  Type,
+  Users,
+} from 'lucide-react'
 import { CopyButton } from '@/components/CopyButton'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -88,6 +109,28 @@ export function ModuleRenderer({
     window.setTimeout(() => {
       setCopiedColorToken((current) => (current === token ? null : current))
     }, 1300)
+  }
+
+  const iconFor = (icon: IconKey) => {
+    const icons: Record<IconKey, typeof Users> = {
+      users: Users,
+      sparkles: Sparkles,
+      network: Network,
+      handshake: Handshake,
+      rocket: Rocket,
+      shield: ShieldCheck,
+      globe: Globe,
+      layers: Layers3,
+      briefcase: Briefcase,
+      chart: BarChart3,
+      book: BookOpen,
+      palette: Palette,
+      type: Type,
+      play: PlayCircle,
+      camera: Camera,
+    }
+
+    return icons[icon] ?? Sparkles
   }
 
   switch (block.type) {
@@ -297,6 +340,48 @@ export function ModuleRenderer({
                 <CardContent className="space-y-3 px-5 py-6 md:px-6 md:py-7">
                   <h3 className="text-2xl font-semibold tracking-[-0.02em]">{card.title}</h3>
                   <p className="text-base leading-7 text-muted-foreground">{card.body}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )
+
+    case 'iconCards':
+      return (
+        <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
+          <SectionTitle title={block.title} centered={centeredLayout} />
+          {block.description ? <p className={`text-base leading-7 text-muted-foreground ${centeredLayout ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}`}>{block.description}</p> : null}
+          <div className={`grid gap-4 md:grid-cols-2 xl:grid-cols-3 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+            {block.cards.map((card) => {
+              const Icon = iconFor(card.icon)
+              return (
+                <Card key={`${card.icon}-${card.title}`} className="rounded-2xl border-0 bg-muted/30 shadow-none">
+                  <CardContent className="space-y-4 px-5 py-6 md:px-6 md:py-7">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-foreground/10 text-foreground">
+                      <Icon size={18} />
+                    </div>
+                    <h3 className="text-2xl font-semibold tracking-[-0.02em]">{card.title}</h3>
+                    <p className="text-base leading-7 text-muted-foreground">{card.body}</p>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
+        </section>
+      )
+
+    case 'statStrip':
+      return (
+        <section className={`space-y-8 pt-14 md:pt-20 ${centeredLayout ? 'mx-auto max-w-6xl' : ''}`}>
+          <SectionTitle title={block.title} centered={centeredLayout} />
+          <div className={`grid gap-4 md:grid-cols-2 xl:grid-cols-4 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+            {block.stats.map((stat) => (
+              <Card key={`${stat.label}-${stat.value}`} className="rounded-2xl border-0 bg-muted/30 shadow-none">
+                <CardContent className="space-y-2 px-5 py-6 md:px-6 md:py-7">
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <p className="text-4xl font-semibold tracking-[-0.04em]">{stat.value}</p>
+                  {stat.note ? <p className="text-sm text-muted-foreground">{stat.note}</p> : null}
                 </CardContent>
               </Card>
             ))}
