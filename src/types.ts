@@ -38,6 +38,7 @@ export type BrandColorSpec = {
   rgb: string
   cmyk: string
   pantone?: string
+  role?: string
 }
 
 export type ContentBlock =

@@ -20,7 +20,7 @@ export function ModuleRenderer({
   introHeroVideoSrc = '/assets/intro-hero.mp4',
 }: ModuleRendererProps) {
   const [copiedVariant, setCopiedVariant] = useState<string | null>(null)
-  const [copiedColor, setCopiedColor] = useState<string | null>(null)
+  const [copiedColorToken, setCopiedColorToken] = useState<string | null>(null)
 
   const copyTextToClipboard = async (value: string) => {
     try {
@@ -70,16 +70,16 @@ export function ModuleRenderer({
     }
   }
 
-  const copyHexToClipboard = async (hex: string) => {
-    const copied = await copyTextToClipboard(hex)
+  const copyColorValueToClipboard = async (value: string, token: string) => {
+    const copied = await copyTextToClipboard(value)
 
     if (!copied) {
       return
     }
 
-    setCopiedColor(hex)
+    setCopiedColorToken(token)
     window.setTimeout(() => {
-      setCopiedColor((current) => (current === hex ? null : current))
+      setCopiedColorToken((current) => (current === token ? null : current))
     }, 1300)
   }
 
@@ -411,14 +411,49 @@ export function ModuleRenderer({
               {block.description}
             </p>
           ) : null}
-          <div className={`grid gap-0 border-t border-border/70 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
+          <div className={`grid gap-0 border-t border-border/70 md:grid-cols-2 lg:grid-cols-4 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.colors.map((color) => {
-              const isCopied = copiedColor === color.hex
+              const colorKey = `${color.name}-${color.hex}`
               const textToneClassName = readableTextClassName(color.hex)
+              const profileItems = [
+                color.pantone
+                  ? {
+                      label: 'Pantone',
+                      value: color.pantone,
+                      token: `${colorKey}-pantone`,
+                    }
+                  : null,
+                {
+                  label: 'CMYK',
+                  value: color.cmyk,
+                  token: `${colorKey}-cmyk`,
+                },
+                {
+                  label: 'RGB',
+                  value: color.rgb,
+                  token: `${colorKey}-rgb`,
+                },
+                {
+                  label: 'HEX',
+                  value: color.hex,
+                  token: `${colorKey}-hex`,
+                },
+              ].filter((item): item is { label: string; value: string; token: string } => Boolean(item))
+              const profileText = [
+                `Name: ${color.name}`,
+                color.role ? `Role: ${color.role}` : null,
+                color.pantone ? `Pantone: ${color.pantone}` : null,
+                `CMYK: ${color.cmyk}`,
+                `RGB: ${color.rgb}`,
+                `HEX: ${color.hex}`,
+              ]
+                .filter(Boolean)
+                .join('\n')
+              const isProfileCopied = copiedColorToken === `${colorKey}-profile`
 
               return (
                 <article
-                  key={`${color.name}-${color.hex}`}
+                  key={colorKey}
                   className="group relative overflow-hidden border-b border-r border-border/60"
                 >
                   <div
@@ -426,35 +461,45 @@ export function ModuleRenderer({
                     style={{ backgroundColor: color.hex }}
                     role="button"
                     tabIndex={0}
-                    title={`Copy ${color.hex}`}
-                    onClick={() => void copyHexToClipboard(color.hex)}
+                    title="Copy full color profile"
+                    onClick={() => void copyColorValueToClipboard(profileText, `${colorKey}-profile`)}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault()
-                        void copyHexToClipboard(color.hex)
+                        void copyColorValueToClipboard(profileText, `${colorKey}-profile`)
                       }
                     }}
                   >
-                    <div className="space-y-3 text-sm leading-tight md:text-base">
-                      {color.pantone ? (
-                        <p className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">
-                          Pantone <span className="ml-1 normal-case font-medium">{color.pantone}</span>
-                        </p>
-                      ) : null}
-                      <p className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">
-                        CMYK <span className="ml-1 normal-case font-medium">{color.cmyk}</span>
-                      </p>
-                      <p className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">
-                        RGB <span className="ml-1 normal-case font-medium">{color.rgb}</span>
-                      </p>
-                      <p className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">
-                        HEX <span className="ml-1 normal-case font-medium">{color.hex}</span>
-                      </p>
+                    <div className="space-y-1.5 text-sm leading-tight md:text-base">
+                      {profileItems.map((item) => {
+                        const isItemCopied = copiedColorToken === item.token
+                        return (
+                          <button
+                            key={item.token}
+                            type="button"
+                            className="group/value flex w-full items-center justify-between rounded-md px-2 py-1 text-left transition-colors hover:bg-black/15 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-current/40 dark:hover:bg-white/15"
+                            onClick={(event) => {
+                              event.preventDefault()
+                              event.stopPropagation()
+                              void copyColorValueToClipboard(item.value, item.token)
+                            }}
+                          >
+                            <span className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">{item.label}</span>
+                            <span className="inline-flex items-center gap-2 text-xs font-medium md:text-sm">
+                              <span>{item.value}</span>
+                              <span className="opacity-0 transition-opacity group-hover/value:opacity-100">
+                                {isItemCopied ? 'Copied' : 'Copy'}
+                              </span>
+                            </span>
+                          </button>
+                        )
+                      })}
                     </div>
 
-                    <p className="pointer-events-none absolute bottom-6 left-5 right-5 text-4xl font-medium tracking-[-0.03em] md:bottom-7 md:left-6 md:right-6 md:text-5xl">
-                      {color.name}
-                    </p>
+                    <div className="pointer-events-none absolute bottom-6 left-5 right-5 md:bottom-7 md:left-6 md:right-6">
+                      <p className="text-3xl font-medium tracking-[-0.03em] md:text-4xl">{color.name}</p>
+                      {color.role ? <p className="mt-1 max-w-[24ch] text-xs font-medium leading-5 opacity-90">{color.role}</p> : null}
+                    </div>
 
                     <div className="pointer-events-none absolute inset-0 bg-black/30 opacity-0 transition-opacity duration-200 md:group-hover:opacity-100 md:group-focus-within:opacity-100" />
 
@@ -465,11 +510,11 @@ export function ModuleRenderer({
                         onClick={(event) => {
                           event.preventDefault()
                           event.stopPropagation()
-                          void copyHexToClipboard(color.hex)
+                          void copyColorValueToClipboard(profileText, `${colorKey}-profile`)
                         }}
                       >
-                        {isCopied ? <Check size={14} /> : <Copy size={14} />}
-                        {isCopied ? 'Copied' : 'Copy HEX'}
+                        {isProfileCopied ? <Check size={14} /> : <Copy size={14} />}
+                        {isProfileCopied ? 'Copied profile' : 'Copy profile'}
                       </button>
                     </div>
                   </div>

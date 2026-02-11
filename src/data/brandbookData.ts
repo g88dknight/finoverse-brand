@@ -1,4 +1,4 @@
-import type { BrandbookData, BrandbookPage } from '../types'
+import type { BrandColorSpec, BrandbookData, BrandbookPage } from '../types'
 
 const sectionSlug = 'finoverse-brand'
 
@@ -24,11 +24,111 @@ function figmaFileNameFromUrl(url: string): string {
   }
 }
 
+const networkPrimaryColors: BrandColorSpec[] = [
+  {
+    name: 'Burgundy Red',
+    cmyk: '0/75/50/52',
+    rgb: '122/31/61',
+    hex: '#7A1F3D',
+    role: 'Master color for Finoverse Network',
+  },
+  {
+    name: 'Coral Red',
+    pantone: '1787 C',
+    cmyk: '0/92/68/0',
+    rgb: '249/53/73',
+    hex: '#F93549',
+    role: 'Primary color for Finoverse Events',
+  },
+  {
+    name: 'Samantha Blue',
+    cmyk: '84/17/0/0',
+    rgb: '41/211/255',
+    hex: '#29D3FF',
+    role: 'Primary color for Finoverse AI',
+  },
+  {
+    name: 'Tiffany Blue',
+    cmyk: '95/0/3/27',
+    rgb: '10/186/181',
+    hex: '#0ABAB5',
+    role: 'Primary color for Finoverse Ventures',
+  },
+]
+
+const extendedNetworkColors: BrandColorSpec[] = [
+  {
+    name: 'Calm Blue',
+    pantone: '307 C',
+    cmyk: '100/50/19/3',
+    rgb: '0/105/167',
+    hex: '#0069A7',
+    role: 'Support blue for digital depth and trust',
+  },
+  {
+    name: 'Sea Blue',
+    pantone: '0921 C',
+    cmyk: '39/0/18/0',
+    rgb: '138/237/226',
+    hex: '#8AEDE2',
+    role: 'Support accent for lightweight highlights',
+  },
+  {
+    name: 'Violet',
+    pantone: '2592 C',
+    cmyk: '51/89/0/0',
+    rgb: '158/40/181',
+    hex: '#9E28B5',
+    role: 'Secondary accent for campaign moments',
+  },
+  {
+    name: 'Orange',
+    cmyk: '0/50/100/0',
+    rgb: '255/147/0',
+    hex: '#FF9300',
+    role: 'Utility accent for emphasis and CTA moments',
+  },
+  {
+    name: 'Dark Night',
+    pantone: '2965 C',
+    cmyk: '100/83/44/48',
+    rgb: '4/39/68',
+    hex: '#042744',
+    role: 'Primary dark tone for typography and surfaces',
+  },
+  {
+    name: 'Sky Blue',
+    cmyk: '50/6/0/0',
+    rgb: '102/199/255',
+    hex: '#66C7FF',
+    role: 'Support highlight for bright layouts',
+  },
+  {
+    name: 'Cloud',
+    cmyk: '2/1/0/3',
+    rgb: '244/245/248',
+    hex: '#F4F5F8',
+    role: 'Neutral light background tone',
+  },
+  {
+    name: 'Stone',
+    cmyk: '0/0/1/5',
+    rgb: '243/243/241',
+    hex: '#F3F3F1',
+    role: 'Neutral editorial background tone',
+  },
+]
+
 type SubBrandConfig = {
   key: 'events' | 'ai' | 'ventures'
   title: string
   description: string
-  colorSet: Array<{ name: string; hex: string; role: string }>
+  vision: string
+  roleInNetwork: string
+  poweredBy: string
+  keyExamples: Array<{ title: string; body: string }>
+  executionFocus: Array<{ title: string; body: string }>
+  colorSet: BrandColorSpec[]
   illustrationDirection: string
   graphicDirection: string
 }
@@ -48,39 +148,31 @@ function createSubBrandPages(config: SubBrandConfig): BrandbookPage[] {
         },
         {
           type: 'textColumns',
-          title: 'How This Sub-Brand Works',
+          title: 'Brand Positioning',
           columns: [
             {
-              title: 'Role',
-              body: `Use ${config.title} where this business line is the primary owner of the message.`,
+              title: 'Vision',
+              body: config.vision,
             },
             {
-              title: 'Relationship to master brand',
-              body: 'Lockups, spacing, and typography inherit from the Finoverse master rules.',
+              title: 'Role in the Network',
+              body: config.roleInNetwork,
             },
             {
-              title: 'Channel priority',
-              body: 'Apply these rules first in launch pages, social posts, one-pagers, and event assets.',
+              title: 'Powered by',
+              body: config.poweredBy,
             },
           ],
         },
         {
           type: 'ruleCards',
-          title: 'System Principles',
-          cards: [
-            {
-              title: 'Consistent',
-              body: 'Same structural rules across every sub-brand to reduce execution drift.',
-            },
-            {
-              title: 'Distinctive',
-              body: 'Each sub-brand has controlled visual accents for quick recognition.',
-            },
-            {
-              title: 'Scalable',
-              body: 'The same tokens should work from social tile to keynote stage.',
-            },
-          ],
+          title: 'Execution Focus',
+          cards: config.executionFocus,
+        },
+        {
+          type: 'steps',
+          title: 'Key Examples from Creative Brief',
+          steps: config.keyExamples,
         },
       ],
     },
@@ -93,13 +185,14 @@ function createSubBrandPages(config: SubBrandConfig): BrandbookPage[] {
         {
           type: 'hero',
           title: `${config.title} Colors`,
-          description: 'Use these colors as the only approved palette for this sub-brand.',
+          description:
+            'Use this palette as the approved color system for this sub-brand. Hover and copy any value in Pantone, CMYK, RGB, HEX, or full profile format.',
         },
         {
-          type: 'swatches',
+          type: 'brandColorPalette',
           title: 'Core Palette',
-          description: 'The first two colors are primary. The rest are neutral support tones.',
-          swatches: config.colorSet,
+          description: 'Primary color first, followed by support and neutral tones for consistent production.',
+          colors: config.colorSet,
         },
         {
           type: 'downloadList',
@@ -240,12 +333,73 @@ const subBrandPages = [
   ...createSubBrandPages({
     key: 'events',
     title: 'Finoverse Events',
-    description: 'The Events sub-brand is built for keynotes, summits, and community moments. It should feel energetic, premium, and globally consistent.',
+    description: 'Where social experiences meet business. Finoverse Events builds the next generation of events and trusted offline networks.',
+    vision: 'We build the next generation of events and offline networks.',
+    roleInNetwork:
+      'A dedicated space for professionals to build high-trust relationships and drive transformative change through curated in-person experiences.',
+    poweredBy: 'Powered by Finoverse AI and Samantha to make every handshake count.',
+    keyExamples: [
+      {
+        title: 'HKFTW',
+        body: 'Flagship event format built for global tech leaders and curated high-trust relationships.',
+      },
+      {
+        title: 'Genesis Festival',
+        body: 'Community-led flagship experience where social energy meets business outcomes.',
+      },
+      {
+        title: 'Web3 Afterparties',
+        body: 'The "Un-Conference" format for informal but high-value peer-to-peer conversations.',
+      },
+      {
+        title: 'Project X WEEK',
+        body: 'Offline AI deployment to coordinate complex city-wide event operations at scale.',
+      },
+    ],
+    executionFocus: [
+      {
+        title: 'High-trust relationships',
+        body: 'Design every event touchpoint to move from introductions to trusted partnerships.',
+      },
+      {
+        title: 'Transformative outcomes',
+        body: 'Prioritize measurable collaboration opportunities, not just attendance volume.',
+      },
+      {
+        title: 'Community-led experiences',
+        body: 'Keep formats social-first while maintaining clear business relevance.',
+      },
+    ],
     colorSet: [
-      { name: 'Event Coral', hex: '#FF5E57', role: 'Hero accent for stage moments and announcements' },
-      { name: 'Event Indigo', hex: '#3D4BFF', role: 'Depth and contrast for dark backgrounds' },
-      { name: 'Cloud', hex: '#F4F5F8', role: 'Large neutral layout fields' },
-      { name: 'Ink', hex: '#0D1020', role: 'Primary typography and mark applications' },
+      {
+        name: 'Coral Red',
+        pantone: '1787 C',
+        cmyk: '0/92/68/0',
+        rgb: '249/53/73',
+        hex: '#F93549',
+        role: 'Primary sub-brand color for Events',
+      },
+      {
+        name: 'Burgundy Red',
+        cmyk: '0/75/50/52',
+        rgb: '122/31/61',
+        hex: '#7A1F3D',
+        role: 'Secondary depth tone from the master network identity',
+      },
+      {
+        name: 'Dark Night',
+        cmyk: '100/83/44/48',
+        rgb: '4/39/68',
+        hex: '#042744',
+        role: 'Dark base for typography and contrast surfaces',
+      },
+      {
+        name: 'Cloud',
+        cmyk: '2/1/0/3',
+        rgb: '244/245/248',
+        hex: '#F4F5F8',
+        role: 'Light neutral for large layout areas',
+      },
     ],
     illustrationDirection: 'Illustrations should feel cinematic and kinetic, with bold diagonals and expressive directional flow.',
     graphicDirection: 'Graphic elements should support stage readability at distance while preserving digital clarity.',
@@ -253,12 +407,72 @@ const subBrandPages = [
   ...createSubBrandPages({
     key: 'ai',
     title: 'Finoverse AI',
-    description: 'Finoverse AI communicates intelligence that feels practical and human. Visual language should be precise, calm, and trustworthy.',
+    description: 'For the future of professional connections. Finoverse AI is the quiet engine behind event experiences and community intelligence.',
+    vision: 'Finoverse AI powers event experiences, handling most transactions so teams can focus on high-trust relationship building.',
+    roleInNetwork:
+      'Samantha sits at the core of the AI initiative as a community host for the future of professional connections.',
+    poweredBy: 'Events-to-users matching, smart itineraries, and roundtable placement workflows.',
+    keyExamples: [
+      {
+        title: 'Events-to-users tool',
+        body: 'Hyper-personalized connection engine focused on high-value matches and context-aware introductions.',
+      },
+      {
+        title: 'Smart itineraries',
+        body: 'Adaptive scheduling support that helps attendees navigate high-impact opportunities.',
+      },
+      {
+        title: 'Roundtable placement',
+        body: 'AI-assisted participant placement to maximize relevance and conversation quality.',
+      },
+      {
+        title: 'Samantha AI Community Host',
+        body: 'AI host model for the next era of professional connections and continuity after events.',
+      },
+    ],
+    executionFocus: [
+      {
+        title: 'Quiet infrastructure',
+        body: 'Keep AI present in outcomes, not noisy in communication.',
+      },
+      {
+        title: 'Personalized relevance',
+        body: 'Every recommendation should increase trust, context, and practical value.',
+      },
+      {
+        title: 'Operational reliability',
+        body: 'AI workflows must remain transparent, practical, and event-ready.',
+      },
+    ],
     colorSet: [
-      { name: 'AI Cyan', hex: '#29D3FF', role: 'Primary accent for model and product touchpoints' },
-      { name: 'AI Violet', hex: '#7766FF', role: 'Secondary gradient anchor and interactive emphasis' },
-      { name: 'Mist', hex: '#EEF2F7', role: 'Surface backgrounds and card structure' },
-      { name: 'Graphite', hex: '#121826', role: 'Primary text and dark UI fields' },
+      {
+        name: 'Samantha Blue',
+        cmyk: '84/17/0/0',
+        rgb: '41/211/255',
+        hex: '#29D3FF',
+        role: 'Primary sub-brand color for Finoverse AI',
+      },
+      {
+        name: 'Sea Blue',
+        cmyk: '39/0/18/0',
+        rgb: '138/237/226',
+        hex: '#8AEDE2',
+        role: 'Secondary support accent for AI-led interactions',
+      },
+      {
+        name: 'Dark Night',
+        cmyk: '100/83/44/48',
+        rgb: '4/39/68',
+        hex: '#042744',
+        role: 'Dark foundation for contrast and readability',
+      },
+      {
+        name: 'Cloud',
+        cmyk: '2/1/0/3',
+        rgb: '244/245/248',
+        hex: '#F4F5F8',
+        role: 'Light base for product and content surfaces',
+      },
     ],
     illustrationDirection: 'Illustrations should use structured geometry, subtle depth, and clean signal pathways.',
     graphicDirection: 'Graphic primitives should suggest data flow, modularity, and high confidence in decision-making.',
@@ -266,12 +480,72 @@ const subBrandPages = [
   ...createSubBrandPages({
     key: 'ventures',
     title: 'Finoverse Ventures',
-    description: 'Finoverse Ventures represents long-horizon bets and strategic growth. Tone is bold, optimistic, and clear about value creation.',
+    description: 'Bridging tech and capital. Finoverse Ventures operates at the intersection of innovation and investment.',
+    vision:
+      'Finoverse Ventures acts as an active accelerator where community-driven deal flow meets market access and smart money.',
+    roleInNetwork: 'Go-to-Market partner for tech startups scaling in Asia and beyond.',
+    poweredBy: 'Genesis Programme, deal-flow brokerage, and advisory partnerships for market entry and scaling.',
+    keyExamples: [
+      {
+        title: 'Genesis Programme',
+        body: 'Program-level support connecting founders with the right operators, partners, and investors.',
+      },
+      {
+        title: 'Venture Opportunities',
+        body: 'Deal-flow brokerage and strategic introductions across the broader Finoverse network.',
+      },
+      {
+        title: 'Go-to-Market partnerships',
+        body: 'Advisory support for launch, market-entry planning, and scaling in Asia and beyond.',
+      },
+      {
+        title: 'Smart money access',
+        body: 'Capital support paired with practical distribution and execution pathways.',
+      },
+    ],
+    executionFocus: [
+      {
+        title: 'Tech-capital bridge',
+        body: 'Translate product momentum into real business traction and investor readiness.',
+      },
+      {
+        title: 'Community-driven deal flow',
+        body: 'Use network intelligence and trust to improve connection quality.',
+      },
+      {
+        title: 'Go-to-Market acceleration',
+        body: 'Pair advisory support with execution frameworks for measurable growth.',
+      },
+    ],
     colorSet: [
-      { name: 'Venture Green', hex: '#17C964', role: 'Growth accents and opportunity highlights' },
-      { name: 'Venture Blue', hex: '#1E6BFF', role: 'Primary digital framing and confidence layer' },
-      { name: 'Stone', hex: '#F3F3F1', role: 'Neutral canvas for editorial layouts' },
-      { name: 'Carbon', hex: '#111111', role: 'Core typography and structural contrast' },
+      {
+        name: 'Tiffany Blue',
+        cmyk: '95/0/3/27',
+        rgb: '10/186/181',
+        hex: '#0ABAB5',
+        role: 'Primary sub-brand color for Finoverse Ventures',
+      },
+      {
+        name: 'Calm Blue',
+        cmyk: '100/50/19/3',
+        rgb: '0/105/167',
+        hex: '#0069A7',
+        role: 'Support color for structured venture communication',
+      },
+      {
+        name: 'Dark Night',
+        cmyk: '100/83/44/48',
+        rgb: '4/39/68',
+        hex: '#042744',
+        role: 'Core dark tone for typography and interface hierarchy',
+      },
+      {
+        name: 'Stone',
+        cmyk: '0/0/1/5',
+        rgb: '243/243/241',
+        hex: '#F3F3F1',
+        role: 'Neutral background for editorial and investment narratives',
+      },
     ],
     illustrationDirection: 'Illustrations should feel optimistic and directional, with clear momentum and strategic framing.',
     graphicDirection: 'Graphic elements should be sparse and modular, emphasizing structure over decoration.',
@@ -295,7 +569,7 @@ export const brandbookData: BrandbookData = {
           blocks: [
             {
               type: 'hero',
-              title: 'Finoverse Brand System',
+              title: 'Finoverse Network',
               description:
                 'This brandbook is a living system for product, marketing, and partnerships. Every rule is structured for fast execution and consistent quality.',
             },
@@ -326,39 +600,57 @@ export const brandbookData: BrandbookData = {
               type: 'hero',
               title: 'Brand Tone',
               description:
-                'Our tone is clear, direct, and confident. We explain complex ideas in plain language without losing depth.',
+                "We do not just host events. We lead a global AI-powered tech network that bridges innovation and capital.",
+            },
+            {
+              type: 'textColumns',
+              title: 'Core Brand Values',
+              columns: [
+                {
+                  title: 'People',
+                  body: 'Bring next-generation tech leaders together and build the leading trusted offline global tech network.',
+                },
+                {
+                  title: 'Impact',
+                  body: 'Drive real business value by redefining connections and bridging future tech with capital.',
+                },
+                {
+                  title: 'Experience',
+                  body: 'Set new standards for events through AI-powered, decentralized, and community-led execution.',
+                },
+              ],
             },
             {
               type: 'ruleCards',
-              title: 'Tone Pillars',
+              title: 'Brand Tone and Feel',
               cards: [
                 {
-                  title: 'Clear',
-                  body: 'Lead with intent in the first sentence. Avoid jargon where simple words can work.',
+                  title: 'Visionary',
+                  body: 'Speak about next-generation events and networks, always connecting innovation and capital with a clear AI-led direction.',
                 },
                 {
-                  title: 'Grounded',
-                  body: 'Back claims with practical outcomes and concrete examples.',
+                  title: 'Relatable',
+                  body: 'Stay accessible and friendly while remaining tech-forward to support real conversations and high-trust relationships.',
                 },
                 {
-                  title: 'Forward',
-                  body: 'Speak with momentum and direction while staying realistic.',
+                  title: 'Collaborative',
+                  body: 'Frame Finoverse as a trusted partner and community network, not as a distant authority.',
                 },
               ],
             },
             {
               type: 'doDont',
-              title: 'Writing Rules',
+              title: 'Vocabulary Direction',
               items: [
                 {
                   kind: 'do',
-                  title: 'Use active voice and specific verbs',
-                  text: 'Write with ownership and decisive language in headlines and CTAs.',
+                  title: 'Keywords to use',
+                  text: 'Trusted Partner, Global Tech Network, Global Trusted Offline Network, Collaborative, Next Generation, Peer-to-peer, Connections, High-impact, Personalized, Synergy, Community, AI-powered, Innovate, Transform, Redefine, Curated, Future-proof.',
                 },
                 {
                   kind: 'dont',
-                  title: 'Avoid vague superlatives',
-                  text: 'Do not use “world-class” or “best-in-class” without evidence.',
+                  title: 'Words to avoid',
+                  text: 'Ecosystem, Disruption, Revolutionary, Cutting-Edge.',
                 },
               ],
             },
@@ -482,96 +774,21 @@ export const brandbookData: BrandbookData = {
               type: 'hero',
               title: 'Colors',
               description:
-                'Primary and extended brand palette for digital and print use. Hover any color card and copy HEX directly from the overlay.',
+                'Primary and supporting palette for Finoverse Network and its three key brands. Hover a color profile and copy Pantone, CMYK, RGB, HEX, or the full profile.',
             },
             {
               type: 'brandColorPalette',
-              title: 'Primary Colors',
+              title: 'Network and Sub-Brand Colors',
               description:
-                'Core palette from the master brand system. Use these as default identity colors across product, marketing, and materials.',
-              colors: [
-                {
-                  name: 'Coral Red',
-                  pantone: '1787 C',
-                  cmyk: '0/92/68/0',
-                  rgb: '249/53/73',
-                  hex: '#F93549',
-                },
-                {
-                  name: 'Sea Blue',
-                  pantone: '0921 C',
-                  cmyk: '39/0/18/0',
-                  rgb: '138/237/226',
-                  hex: '#8AEDE2',
-                },
-                {
-                  name: 'Calm Blue',
-                  pantone: '307 C',
-                  cmyk: '100/50/19/3',
-                  rgb: '0/105/167',
-                  hex: '#0069A7',
-                },
-                {
-                  name: 'Dark Night',
-                  pantone: '2965 C',
-                  cmyk: '100/83/44/48',
-                  rgb: '4/39/68',
-                  hex: '#042744',
-                },
-              ],
+                'Master brand color plus the assigned color identities for Events, AI, and Ventures from the creative brief.',
+              colors: networkPrimaryColors,
             },
             {
               type: 'brandColorPalette',
-              title: 'Brand Colors',
+              title: 'Supporting Colors',
               description:
-                'Extended brand colors from the provided brand color board. Use as accents while preserving hierarchy of the primary palette.',
-              colors: [
-                {
-                  name: 'Coral Red',
-                  pantone: '1787 C',
-                  cmyk: '0/92/68/0',
-                  rgb: '249/53/73',
-                  hex: '#F93549',
-                },
-                {
-                  name: 'Violet',
-                  pantone: '2592 C',
-                  cmyk: '51/89/0/0',
-                  rgb: '158/40/181',
-                  hex: '#9E28B5',
-                },
-                {
-                  name: 'Calm Blue',
-                  pantone: '307 C',
-                  cmyk: '100/50/19/3',
-                  rgb: '0/105/167',
-                  hex: '#0069A7',
-                },
-                {
-                  name: 'Sea Blue',
-                  cmyk: '38/0/18/0',
-                  rgb: '138/237/226',
-                  hex: '#8AEDE2',
-                },
-                {
-                  name: 'Orange',
-                  cmyk: '0/50/100/0',
-                  rgb: '255/147/0',
-                  hex: '#FF9300',
-                },
-                {
-                  name: 'Dark Night',
-                  cmyk: '100/83/44/48',
-                  rgb: '4/39/68',
-                  hex: '#042744',
-                },
-                {
-                  name: 'Sky Blue',
-                  cmyk: '50/6/0/0',
-                  rgb: '102/199/255',
-                  hex: '#66C7FF',
-                },
-              ],
+                'Use these tones for hierarchy, contrast, and production flexibility while preserving the network/sub-brand color hierarchy.',
+              colors: extendedNetworkColors,
             },
           ],
         },
