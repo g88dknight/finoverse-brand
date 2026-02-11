@@ -126,7 +126,7 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
                       <SidebarMenuButton
                         asChild
                         isActive={isParentActive}
-                        className={`h-10 rounded-lg px-5 text-[13px] font-medium tracking-[-0.01em] text-foreground/90 hover:bg-transparent data-[active=true]:bg-gradient-to-r data-[active=true]:from-white/10 data-[active=true]:to-white/5 ${
+                        className={`h-10 rounded-lg px-5 text-[13px] font-medium tracking-[-0.01em] text-foreground/90 transition-colors hover:bg-accent/50 hover:text-foreground data-[active=true]:bg-accent/65 data-[active=true]:text-foreground ${
                           hasChildren ? 'pr-10' : ''
                         }`}
                       >
@@ -160,7 +160,7 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
                               key={child.id}
                               asChild
                               isActive={isChildActive}
-                              className="h-8 rounded-lg px-7 text-[12px] font-normal tracking-[-0.01em] text-foreground/70 hover:bg-transparent data-[active=true]:bg-gradient-to-r data-[active=true]:from-white/10 data-[active=true]:to-white/5"
+                              className="h-8 rounded-lg px-7 text-[12px] font-normal tracking-[-0.01em] text-foreground/70 transition-colors hover:bg-accent/45 hover:text-foreground data-[active=true]:bg-accent/60 data-[active=true]:text-foreground"
                             >
                               <NavLink to={child.path}>{child.title}</NavLink>
                             </SidebarMenuButton>
@@ -183,8 +183,8 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
       <SidebarInset className="relative overflow-hidden bg-background md:peer-data-[state=collapsed]:[&_.main-shell]:max-w-none md:peer-data-[state=collapsed]:[&_.chat-inner]:max-w-none md:peer-data-[state=expanded]:[&_.chat-shell]:left-[var(--sidebar-width)]">
         <HongKongTimeWidget />
 
-        <div className="fixed left-0 top-8 z-50 hidden w-[var(--sidebar-width)] items-center justify-between px-6 md:flex">
-          <Link to={firstPagePath} className="shrink-0 translate-y-1">
+        <div className="fixed left-0 top-8 z-50 hidden w-[var(--sidebar-width)] items-center justify-between pl-9 pr-4 md:flex">
+          <Link to={firstPagePath} className="shrink-0">
             <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
           </Link>
           <SidebarTrigger className="h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
