@@ -233,8 +233,11 @@ export function BrandbookLayout({ pageLookup }: BrandbookLayoutProps) {
           <SidebarTrigger className="-translate-y-1 h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
         </div>
 
-        <div className="fixed left-4 top-3 z-40 md:hidden">
-          <SidebarTrigger className="-translate-y-1 h-8 w-8 rounded-full border border-border/70 bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
+        <div className="fixed left-0 top-8 z-40 flex w-[var(--sidebar-width)] items-center justify-between pl-6 pr-4 md:hidden">
+          <Link to={firstPagePath} className="shrink-0">
+            <img src="/assets/logo.svg" alt="Finoverse Brand" className={logoClassName} />
+          </Link>
+          <SidebarTrigger className="-translate-y-1 h-7 w-7 rounded-md bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground" />
         </div>
 
         <main

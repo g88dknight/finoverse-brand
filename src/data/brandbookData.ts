@@ -174,52 +174,6 @@ function createSubBrandPages(config: SubBrandConfig): BrandbookPage[] {
           title: 'Key Examples from Creative Brief',
           steps: config.keyExamples,
         },
-        {
-          type: 'iconCards',
-          title: 'Operating Priorities',
-          cards: [
-            {
-              icon: 'users',
-              title: 'Community Quality',
-              body: 'Curate for relevance and shared intent before scale.',
-            },
-            {
-              icon: 'chart',
-              title: 'Measurable Outcomes',
-              body: 'Tie each activation to concrete partnership or growth outcomes.',
-            },
-            {
-              icon: 'rocket',
-              title: 'Execution Speed',
-              body: 'Keep production loops short with reusable assets and clear roles.',
-            },
-          ],
-        },
-        {
-          type: 'statStrip',
-          title: 'Sub-brand Snapshot',
-          stats: [
-            {
-              label: 'Positioning',
-              value: config.title,
-            },
-            {
-              label: 'Network Role',
-              value: 'Core',
-              note: 'Directly connected to Finoverse master system',
-            },
-            {
-              label: 'Primary Focus',
-              value: 'Trust',
-              note: 'Human-first outcomes with structured execution',
-            },
-            {
-              label: 'Delivery Mode',
-              value: 'Hybrid',
-              note: 'Offline moments powered by digital systems',
-            },
-          ],
-        },
       ],
     },
     {
@@ -819,28 +773,6 @@ export const brandbookData: BrandbookData = {
               ],
             },
             {
-              type: 'statStrip',
-              title: 'Voice Targets',
-              stats: [
-                {
-                  label: 'Sentence style',
-                  value: 'Active',
-                },
-                {
-                  label: 'Tone quality',
-                  value: 'Trusted',
-                },
-                {
-                  label: 'Message length',
-                  value: 'Concise',
-                },
-                {
-                  label: 'Narrative arc',
-                  value: 'Outcome-led',
-                },
-              ],
-            },
-            {
               type: 'quote',
               text: 'Trusted networks are built one clear conversation at a time.',
               author: 'Finoverse Messaging Principle',
@@ -960,49 +892,6 @@ export const brandbookData: BrandbookData = {
               ],
             },
             {
-              type: 'iconCards',
-              title: 'Logo Governance',
-              cards: [
-                {
-                  icon: 'layers',
-                  title: 'Variant Control',
-                  body: 'Use only approved lockups and icons from this library to prevent drift.',
-                },
-                {
-                  icon: 'shield',
-                  title: 'Contrast Safety',
-                  body: 'Select the variant that preserves readability across light, dark, and media-led surfaces.',
-                },
-                {
-                  icon: 'book',
-                  title: 'Reusable Templates',
-                  body: 'Start from pre-approved placements for decks, social, and launch documents.',
-                },
-              ],
-            },
-            {
-              type: 'statStrip',
-              title: 'Logo System Snapshot',
-              stats: [
-                {
-                  label: 'Primary lockup',
-                  value: '1',
-                },
-                {
-                  label: 'Approved variants',
-                  value: '5',
-                },
-                {
-                  label: 'Icon set',
-                  value: 'Star',
-                },
-                {
-                  label: 'Export format',
-                  value: 'SVG',
-                },
-              ],
-            },
-            {
               type: 'downloadList',
               title: 'Logo Downloads',
               items: [
@@ -1075,50 +964,6 @@ export const brandbookData: BrandbookData = {
                 {
                   title: '03. Validate for accessibility',
                   body: 'Check foreground/background contrast on all key copy and CTA areas before release.',
-                },
-              ],
-            },
-            {
-              type: 'iconCards',
-              title: 'Color Applications',
-              cards: [
-                {
-                  icon: 'palette',
-                  title: 'Brand-first layouts',
-                  body: 'Lead each page with one dominant color family to protect hierarchy and identity.',
-                },
-                {
-                  icon: 'camera',
-                  title: 'Image-led campaigns',
-                  body: 'Use overlays and support tones to keep text contrast stable over rich media.',
-                },
-                {
-                  icon: 'chart',
-                  title: 'Data and interface clarity',
-                  body: 'Reserve high-contrast combinations for key metrics, controls, and calls to action.',
-                },
-              ],
-            },
-            {
-              type: 'statStrip',
-              title: 'Palette Coverage',
-              stats: [
-                {
-                  label: 'Network colors',
-                  value: '4',
-                },
-                {
-                  label: 'Support colors',
-                  value: '8',
-                },
-                {
-                  label: 'Color formats',
-                  value: '4',
-                  note: 'Pantone, CMYK, RGB, HEX',
-                },
-                {
-                  label: 'Export pack',
-                  value: 'ASE',
                 },
               ],
             },
@@ -1269,49 +1114,6 @@ export const brandbookData: BrandbookData = {
                 },
               ],
             },
-            {
-              type: 'iconCards',
-              title: 'Reading Experience',
-              cards: [
-                {
-                  icon: 'type',
-                  title: 'Hierarchy that scans fast',
-                  body: 'Use strong heading contrast and consistent paragraph spacing for rapid comprehension.',
-                },
-                {
-                  icon: 'book',
-                  title: 'Long-form stability',
-                  body: 'Keep line lengths predictable in reports, proposals, and narrative pages.',
-                },
-                {
-                  icon: 'briefcase',
-                  title: 'Cross-channel consistency',
-                  body: 'Apply the same type tokens across product UI, decks, and social templates.',
-                },
-              ],
-            },
-            {
-              type: 'statStrip',
-              title: 'Type System',
-              stats: [
-                {
-                  label: 'Typeface',
-                  value: 'Geist',
-                },
-                {
-                  label: 'Core sizes',
-                  value: '8',
-                },
-                {
-                  label: 'Weight range',
-                  value: '400-700',
-                },
-                {
-                  label: 'Primary use',
-                  value: 'Universal',
-                },
-              ],
-            },
           ],
         },
         ...subBrandPages,
@@ -1347,27 +1149,6 @@ export const brandbookData: BrandbookData = {
                 {
                   title: '03. Respect user settings',
                   body: 'Always support reduced-motion alternatives.',
-                },
-              ],
-            },
-            {
-              type: 'iconCards',
-              title: 'Motion Use Cases',
-              cards: [
-                {
-                  icon: 'play',
-                  title: 'Hero storytelling',
-                  body: 'Use cinematic motion to frame narrative context before users enter detailed modules.',
-                },
-                {
-                  icon: 'layers',
-                  title: 'State transitions',
-                  body: 'Animate structural changes to preserve orientation when content density changes.',
-                },
-                {
-                  icon: 'shield',
-                  title: 'Accessibility-first',
-                  body: 'Ensure reduced-motion alternatives for every critical interaction and sequence.',
                 },
               ],
             },
@@ -1411,27 +1192,6 @@ export const brandbookData: BrandbookData = {
                   kind: 'dont',
                   title: 'Avoid overloaded captions',
                   text: 'Use short line lengths and one clear CTA in each post.',
-                },
-              ],
-            },
-            {
-              type: 'iconCards',
-              title: 'Content Architecture',
-              cards: [
-                {
-                  icon: 'camera',
-                  title: 'One visual anchor',
-                  body: 'Each post should have a single dominant visual focal point before supporting details.',
-                },
-                {
-                  icon: 'type',
-                  title: 'Readable overlay copy',
-                  body: 'Protect text clarity with contrast-safe placements and concise message blocks.',
-                },
-                {
-                  icon: 'chart',
-                  title: 'Performance loop',
-                  body: 'Iterate formats using engagement and conversion signals, not aesthetics alone.',
                 },
               ],
             },

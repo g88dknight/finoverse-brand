@@ -294,7 +294,7 @@ export function ModuleRenderer({
             {block.columns.map((column) => (
               <Card
                 key={column.title ?? column.body.slice(0, 24)}
-                className="rounded-2xl border-0 bg-muted/30 shadow-none"
+                className="rounded-2xl border-0 bg-muted/40 shadow-none"
               >
                 <CardContent className="space-y-4 px-5 py-6 md:px-6 md:py-7">
                   {column.title ? <h3 className="text-2xl font-semibold tracking-[-0.02em]">{column.title}</h3> : null}
@@ -315,7 +315,7 @@ export function ModuleRenderer({
             {block.steps.map((step) => (
               <Card
                 key={step.title}
-                className="rounded-2xl border-0 bg-muted/30 shadow-none"
+                className="rounded-2xl border-0 bg-muted/40 shadow-none"
               >
                 <CardContent className="space-y-3 px-5 py-6 md:px-6 md:py-7">
                   <h3 className="text-2xl font-semibold tracking-[-0.02em]">{step.title}</h3>
@@ -335,7 +335,7 @@ export function ModuleRenderer({
             {block.cards.map((card) => (
               <Card
                 key={card.title}
-                className="rounded-2xl border-0 bg-muted/30 shadow-none"
+                className="rounded-2xl border-0 bg-muted/40 shadow-none"
               >
                 <CardContent className="space-y-3 px-5 py-6 md:px-6 md:py-7">
                   <h3 className="text-2xl font-semibold tracking-[-0.02em]">{card.title}</h3>
@@ -356,9 +356,9 @@ export function ModuleRenderer({
             {block.cards.map((card) => {
               const Icon = iconFor(card.icon)
               return (
-                <Card key={`${card.icon}-${card.title}`} className="rounded-2xl border-0 bg-muted/30 shadow-none">
+                <Card key={`${card.icon}-${card.title}`} className="rounded-2xl border-0 bg-muted/40 shadow-none">
                   <CardContent className="space-y-4 px-5 py-6 md:px-6 md:py-7">
-                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-foreground/10 text-foreground">
+                    <div className="inline-flex h-10 w-10 items-center justify-center text-foreground/90">
                       <Icon size={18} />
                     </div>
                     <h3 className="text-2xl font-semibold tracking-[-0.02em]">{card.title}</h3>
@@ -377,7 +377,7 @@ export function ModuleRenderer({
           <SectionTitle title={block.title} centered={centeredLayout} />
           <div className={`grid gap-4 md:grid-cols-2 xl:grid-cols-4 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.stats.map((stat) => (
-              <Card key={`${stat.label}-${stat.value}`} className="rounded-2xl border-0 bg-muted/30 shadow-none">
+              <Card key={`${stat.label}-${stat.value}`} className="rounded-2xl border-0 bg-muted/40 shadow-none">
                 <CardContent className="space-y-2 px-5 py-6 md:px-6 md:py-7">
                   <p className="text-sm text-muted-foreground">{stat.label}</p>
                   <p className="text-4xl font-semibold tracking-[-0.04em]">{stat.value}</p>
@@ -398,7 +398,7 @@ export function ModuleRenderer({
             {block.swatches.map((swatch) => (
               <Card
                 key={swatch.hex}
-                className="rounded-2xl border-0 bg-muted/30 shadow-none"
+                className="rounded-2xl border-0 bg-muted/40 shadow-none"
               >
                 <CardContent className="space-y-4 px-5 py-6 md:px-6 md:py-7">
                   <div className="aspect-[4/2] w-full rounded-lg" style={{ background: swatch.hex }} />
@@ -424,7 +424,7 @@ export function ModuleRenderer({
             {block.samples.map((sample) => (
               <Card
                 key={sample.label}
-                className="rounded-2xl border-0 bg-muted/30 shadow-none"
+                className="rounded-2xl border-0 bg-muted/40 shadow-none"
               >
                 <CardContent className="flex flex-col items-start justify-between gap-5 px-5 py-6 md:flex-row md:items-center md:px-6 md:py-7">
                   <div className="space-y-2">
@@ -449,7 +449,7 @@ export function ModuleRenderer({
             {block.items.map((item) => (
               <Card
                 key={`${item.kind}-${item.title}`}
-                className="rounded-2xl border-0 bg-muted/30 shadow-none"
+                className="rounded-2xl border-0 bg-muted/40 shadow-none"
               >
                 <CardContent className="space-y-3 px-5 py-6 md:px-6 md:py-7">
                   <p
@@ -474,7 +474,7 @@ export function ModuleRenderer({
           <SectionTitle title={block.title} centered={centeredLayout} />
           <div className={`grid gap-4 md:grid-cols-2 ${centeredLayout ? 'mx-auto max-w-5xl' : ''}`}>
             {block.items.map((item) => (
-              <figure key={item.src} className="space-y-3 rounded-2xl bg-muted/30 px-5 py-6 md:px-6 md:py-7">
+              <figure key={item.src} className="space-y-3 rounded-2xl bg-muted/40 px-5 py-6 md:px-6 md:py-7">
                 <img
                   src={item.src}
                   alt={item.alt}
@@ -509,7 +509,7 @@ export function ModuleRenderer({
             {block.items.map((item) => (
               <Card
                 key={item.name}
-                className="rounded-2xl border-0 bg-muted/30 shadow-none"
+                className="rounded-2xl border-0 bg-muted/40 shadow-none"
               >
                 <CardContent className="flex flex-col items-start justify-between gap-5 px-5 py-6 md:flex-row md:items-center md:px-6 md:py-7">
                   <div className="space-y-2">
@@ -549,7 +549,7 @@ export function ModuleRenderer({
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative rounded-2xl bg-muted/30 p-4 transition-colors hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="group relative rounded-2xl bg-muted/40 p-4 transition-colors hover:bg-muted/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <div className="absolute right-4 top-4">
                   <ExternalLink size={18} className="text-muted-foreground transition-colors group-hover:text-foreground" />
@@ -689,7 +689,7 @@ export function ModuleRenderer({
               return (
                 <div
                   key={variant.name}
-                  className="group rounded-2xl bg-muted/30 px-5 py-6 md:px-6 md:py-7"
+                  className="group rounded-2xl bg-muted/40 px-5 py-6 md:px-6 md:py-7"
                 >
                   <figure className="space-y-4">
                     <div
