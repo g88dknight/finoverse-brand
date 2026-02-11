@@ -485,7 +485,7 @@ export function ModuleRenderer({
                   className="group relative overflow-hidden border-b border-r border-border/60"
                 >
                   <div
-                    className={`relative min-h-[240px] px-4 py-4 md:min-h-[280px] md:px-4 md:py-5 ${textToneClassName}`}
+                    className={`relative min-h-[240px] px-3 py-3 md:min-h-[270px] md:px-3 md:py-3.5 ${textToneClassName}`}
                     style={{ backgroundColor: color.hex }}
                     role="button"
                     tabIndex={0}
@@ -505,7 +505,7 @@ export function ModuleRenderer({
                           <button
                             key={item.token}
                             type="button"
-                            className="group/value flex w-full items-center justify-between rounded-md px-1.5 py-1 text-left transition-colors hover:bg-black/15 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-current/40 dark:hover:bg-white/15"
+                            className="flex w-full items-center justify-between rounded-md px-1 py-0.5 text-left transition-colors hover:bg-black/15 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-current/40 dark:hover:bg-white/15"
                             onClick={(event) => {
                               event.preventDefault()
                               event.stopPropagation()
@@ -513,10 +513,10 @@ export function ModuleRenderer({
                             }}
                           >
                             <span className="text-xs font-semibold uppercase tracking-[0.08em] md:text-sm">{item.label}</span>
-                            <span className="inline-flex items-center gap-2 text-xs font-medium md:text-sm">
+                            <span className="inline-flex items-center gap-1.5 text-xs font-medium md:text-sm">
                               <span>{item.value}</span>
-                              <span className="opacity-0 transition-opacity group-hover/value:opacity-100">
-                                {isItemCopied ? 'Copied' : 'Copy'}
+                              <span className="inline-flex h-4 w-4 items-center justify-center opacity-90">
+                                {isItemCopied ? <Check size={12} /> : <Copy size={12} />}
                               </span>
                             </span>
                           </button>
@@ -524,7 +524,7 @@ export function ModuleRenderer({
                       })}
                     </div>
 
-                    <div className="pointer-events-none absolute bottom-4 left-4 right-4 md:bottom-5">
+                    <div className="pointer-events-none absolute bottom-3 left-3 right-3 md:bottom-4">
                       <p className="text-3xl font-medium tracking-[-0.03em] md:text-4xl">{color.name}</p>
                     </div>
 
